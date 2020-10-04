@@ -97,7 +97,7 @@ def get_user_roles(user):
 def index():
     return("foobar")
 
-@app.route('/pubivisa/', methods=['GET', 'POST'])
+@app.route('/pubivisa', methods=['GET', 'POST'])
 def pubivisa():
     form = pubivisaForm()
 
