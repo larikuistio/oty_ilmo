@@ -43,3 +43,8 @@ def verify_password(username, password, allowed):
     if username in users and username in allowed and \
             check_password_hash(users.get(username), password):
         return username
+
+
+@app.route('/pubivisa', methods=['GET', 'POST'])
+
+    
