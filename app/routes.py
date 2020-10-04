@@ -67,7 +67,7 @@ try:
         conf_line = line.split(":", 1)
         
         if conf_line[0] == "kapsi":
-            if conf_line[1] = true:
+            if conf_line[1] = "true":
                 KAPSI = True
             else:
                 KAPSI = False
