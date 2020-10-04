@@ -1,0 +1,60 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% extends "header.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Fuksilauluilta</h1>
+
+    {% block ilmo %}
+    <div class="container">
+        <div>
+            <h4>{{ title }}</h4>
+            <h6>* merkityt kohdat pakollisia</h6>
+            <h6><a href="{{ url_for('static',filename='tietosuojaseloste_fuksilauluilta.pdf') }}">Tietosuojaseloste</a></h6>
+
+        </div>
+        {% if starttime < nowtime < endtime %}
+        <form class="form form-horizontal" method="post" role="form">
+            {{ form.hidden_tag() }}
+
+            {{ wtf.form_field(form.etunimi) }}
+            {{ wtf.form_field(form.sukunimi) }}
+
+            {{ wtf.form_field(form.email) }}
+
+            {{ wtf.form_field(form.consent0) }}
+            {{ wtf.form_field(form.consent1) }}
+
+            <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
+
+            <p>Ilmoittautuminen päättyy {{ endtime }}</p>
+
+        </form>
+        {% elif nowtime < starttime %}
+        <p>Ilmoittautuminen alkaa {{ starttime }}</p>
+        {% else %}
+        <p>Ilmoittautuminen on päättynyt</p>
+        {% endif %}
+
+
+        <h3>Osallistujat: {{ count }}/{{ limit }}</h3>
+        {% for entry in entrys%}
+        {% if entry.consent0 %}
+        <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+            {% if loop.index > limit %}
+            (Varasijalla)
+            {% endif %}
+        </p>
+        {% endif %}
+        {% endfor %}
+
+
+    </div>
+    {% endblock %}
+
+</div>
+
+{% endblock %}

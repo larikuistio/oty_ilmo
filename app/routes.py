@@ -1,7 +1,7 @@
-from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, url_for, redirect, request, flash, send_from_directory, session
-from app import app, db, basic_auth
+from flask_httpauth import HTTPBasicAuth
+from app import app, db
 from datetime import datetime, date, time, timedelta
 import requests
 from sqlalchemy import and_
@@ -14,14 +14,18 @@ from werkzeug.datastructures import MultiDict
 from urllib.parse import urlparse, urlunparse
 import subprocess
 
-app = Flask(__name__)
 auth = HTTPBasicAuth()
 
+csrf = CSRFProtect()
+
 try:
+    file = open("auth.conf", "r")
+    lines = file.readlines()
+
     password = os.urandom(64)
     print("created default user")
     print("username: admin")
-    print("password: " + password)
+    print("password: " + str(password))
     
     users = {
         "admin": generate_password_hash(password)
@@ -30,9 +34,6 @@ try:
     roles = {
         "admin": "admin"
     }
-
-    file = open("auth.conf", "r")
-    lines = file.readlines()
 
     for line in lines:
         new_user = line.split(",", 6)
@@ -45,7 +46,7 @@ except FileNotFoundError as e:
     password = os.urandom(64)
     print("auth.conf not found, created default user")
     print("username: admin")
-    print("password: " + password)
+    print("password: " + str(password))
     
     users = {
         "admin": generate_password_hash(password)
@@ -55,7 +56,7 @@ except FileNotFoundError as e:
         "admin": "admin"
     }
 
-finally:
+else:
     file.close()
 
 
@@ -67,7 +68,7 @@ try:
         conf_line = line.split(":", 1)
         
         if conf_line[0] == "kapsi":
-            if conf_line[1] = "true":
+            if conf_line[1] == "true":
                 KAPSI = True
             else:
                 KAPSI = False
@@ -76,7 +77,7 @@ except FileNotFoundError as e:
     print(e)
     print("routes.conf not found")
 
-finally:
+else:
     file.close()
 
 
@@ -90,13 +91,16 @@ def verify_password(username, password):
 def get_user_roles(user):
     return roles[user]
 
+@app.route('/')
+def index():
+    return("foobar")
 
-@app.route('/pubivisa', methods=['GET', 'POST'])
+@app.route('/pubivisa/', methods=['GET', 'POST'])
 def pubivisa():
     form = pubivisaForm()
 
-    starttime = datetime(2020, 8, 25, 12, 00, 00)
-    endtime = datetime(2020, 8, 30, 18, 00, 00)
+    starttime = datetime(2020, 10, 1, 12, 00, 00)
+    endtime = datetime(2020, 10, 12, 12, 00, 00)
     nowtime = datetime.now()
 
     limit = 50
@@ -125,7 +129,7 @@ def pubivisa():
             etunimi = form.etunimi.data,
             sukunimi = form.sukunimi.data,
             phone = form.phone.data,
-            sapo = form.sapo.data,
+            email = form.email.data,
             kilta = form.kilta.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
@@ -139,12 +143,12 @@ def pubivisa():
             msg = ["echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
             "\n\nOlet ilmoittautunut pikniksitseille. Syötit seuraavia tietoja: " + 
             "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
-            "\nSähköposti: " + form.sapo.data + 
+            "\nSähköposti: " + form.email.data + 
             "\nPuhelinnumero: " + form.phone.data + 
             "\nKilta: " + form.kilta.data + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
-            "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' ", form.sapo.data]
+            "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' ", form.email.data]
 
             cmd = msg
             returned_value = os.system(cmd)
@@ -205,8 +209,8 @@ def pubivisa_csv():
 def korttijalautapeliilta():
     form = korttijalautapeliiltaForm()
 
-    starttime = datetime(2020, 8, 25, 12, 00, 00)
-    endtime = datetime(2020, 8, 30, 18, 00, 00)
+    starttime = datetime(2020, 10, 1, 12, 00, 00)
+    endtime = datetime(2020, 10, 12, 12, 00, 00)
     nowtime = datetime.now()
 
     limit = 50
@@ -235,7 +239,7 @@ def korttijalautapeliilta():
             etunimi = form.etunimi.data,
             sukunimi = form.sukunimi.data,
             phone = form.phone.data,
-            sapo = form.sapo.data,
+            email = form.email.data,
             kilta = form.kilta.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
@@ -249,12 +253,12 @@ def korttijalautapeliilta():
             msg = ["echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
             "\n\nOlet ilmoittautunut kortti- ja lautapeli-iltaan. Syötit seuraavia tietoja: " + 
             "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
-            "\nSähköposti: " + form.sapo.data + 
+            "\nSähköposti: " + form.email.data + 
             "\nPuhelinnumero: " + form.phone.data + 
             "\nKilta: " + form.kilta.data + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
-            "|mail -aFrom:no-reply@oty.fi -s 'kortti- ja lautapeli-ilta ilmoittautuminen' ", form.sapo.data]
+            "|mail -aFrom:no-reply@oty.fi -s 'kortti- ja lautapeli-ilta ilmoittautuminen' ", form.email.data]
 
             cmd = msg
             returned_value = os.system(cmd)
@@ -314,8 +318,8 @@ def korttijalautapeliilta_csv():
 def fuksilauluilta():
     form = fuksilauluiltaForm()
 
-    starttime = datetime(2020, 8, 25, 12, 00, 00)
-    endtime = datetime(2020, 8, 30, 18, 00, 00)
+    starttime = datetime(2020, 10, 1, 12, 00, 00)
+    endtime = datetime(2020, 10, 12, 12, 00, 00)
     nowtime = datetime.now()
 
     limit = 50
@@ -343,7 +347,7 @@ def fuksilauluilta():
         sub = fuksilauluiltaModel(
             etunimi = form.etunimi.data,
             sukunimi = form.sukunimi.data,
-            sapo = form.sapo.data,
+            email = form.email.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
 
@@ -356,10 +360,10 @@ def fuksilauluilta():
             msg = ["echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
             "\n\nOlet ilmoittautunut fuksilauluiltaan. Syötit seuraavia tietoja: " + 
             "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
-            "\nSähköposti: " + form.sapo.data + 
+            "\nSähköposti: " + form.email.data + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
-            "|mail -aFrom:no-reply@oty.fi -s 'fuksilauluilta ilmoittautuminen' ", form.sapo.data]
+            "|mail -aFrom:no-reply@oty.fi -s 'fuksilauluilta ilmoittautuminen' ", form.email.data]
 
             cmd = msg
             returned_value = os.system(cmd)
