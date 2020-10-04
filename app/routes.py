@@ -38,7 +38,7 @@ try:
     for line in lines:
         new_user = line.split(",", 6)
         users[new_user[0]] = generate_password_hash(new_user[1])
-        roles[new_user[0]] = new_user[2] + new_user[3] + new_user[4] + new_user[5]
+        roles[new_user[0]] = new_user[2:6]
 
 except FileNotFoundError as e:
     print(e)
@@ -83,13 +83,13 @@ else:
 
 @auth.verify_password
 def verify_password(username, password):
-    if username in users and username in allowed and \
+    if username in users and \
             check_password_hash(users.get(username), password):
         return username
 
 @auth.get_user_roles
 def get_user_roles(user):
-    return roles[user]
+    return roles.get(user)
 
 @app.route('/')
 def index():
