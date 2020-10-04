@@ -56,13 +56,13 @@ class RequiredIfValue(InputRequired):
 class pubivisaForm(FlaskForm):
     etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone = StringField('Puhelinnumero *' validators=[DataRequired(), length(max=20)])
+    phone = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
     
     kilta = RadioField('Kilta *', 
         choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
         ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
-        validators=[DataRequired])
+        validators=[DataRequired()])
 
     consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
@@ -73,13 +73,13 @@ class pubivisaForm(FlaskForm):
 class korttijalautapeliiltaForm(FlaskForm):
     etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone = StringField('Puhelinnumero *' validators=[DataRequired(), length(max=20)])
+    phone = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
     
     kilta = RadioField('Kilta *', 
         choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
         ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
-        validators=[DataRequired])
+        validators=[DataRequired()])
 
     consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])

@@ -30,7 +30,7 @@ class korttijalautapeliiltaModel(db.Model):
     datetime = db.Column(db.DateTime())
 
 
-class korttijalautapeliiltaModel(db.Model):
+class fuksilauluiltaModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     etunimi = db.Column(db.String(64))
     sukunimi = db.Column(db.String(64))
