@@ -22,6 +22,18 @@
 
 </head>
 
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=alert-primary>
+        {% for message in messages %}
+        {{message|safe}}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
 <body>
     {% block content %}{% endblock %}
 </body>

@@ -107,10 +107,11 @@ def pubivisa():
     maxlimit = 50
     
     entrys = pubivisaModel.query.all()
-    count = pubivisaModel.query.count()
+    for entry in entrys:
+        count += entry.personcount
 
     for entry in entrys:
-        if(entry.etunimi == form.etunimi.data and entry.sukunimi == form.sukunimi.data):
+        if(entry.teamname == form.teamname.data):
             flash('Olet jo ilmoittautunut')
 
             return render_template('pubivisa.html', title='pubivisa ilmoittautuminen',
@@ -123,14 +124,39 @@ def pubivisa():
                                     form=form,
                                     page="pubivisa")
 
+    if etunimi0 != "" and sukunimi0 != "":
+        count += 1
+    if etunimi1 != "" and sukunimi1 != "":
+        count += 1
+    if etunimi2 != "" and sukunimi2 != "":
+        count += 1
+    if etunimi3 != "" and sukunimi3 != "":
+        count += 1
+
     if form.validate_on_submit() and count <= maxlimit:
         flash('Ilmoittautuminen onnistui')
         sub = pubivisaModel(
-            etunimi = form.etunimi.data,
-            sukunimi = form.sukunimi.data,
-            phone = form.phone.data,
-            email = form.email.data,
-            kilta = form.kilta.data,
+            teamname = form.teamname.data,
+            etunimi0 = form.etunimi.data,
+            sukunimi0 = form.sukunimi.data,
+            phone0 = form.phone.data,
+            email0 = form.email.data,
+            kilta0 = form.kilta.data,
+            etunimi1 = form.etunimi.data,
+            sukunimi1 = form.sukunimi.data,
+            phone1 = form.phone.data,
+            email1 = form.email.data,
+            kilta1 = form.kilta.data,
+            etunimi2 = form.etunimi.data,
+            sukunimi2 = form.sukunimi.data,
+            phone2 = form.phone.data,
+            email2 = form.email.data,
+            kilta2 = form.kilta.data,
+            etunimi3 = form.etunimi.data,
+            sukunimi3 = form.sukunimi.data,
+            phone3 = form.phone.data,
+            email3 = form.email.data,
+            kilta3 = form.kilta.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
 
@@ -141,11 +167,12 @@ def pubivisa():
 
         if KAPSI:
             msg = ["echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
-            "\n\nOlet ilmoittautunut pikniksitseille. Syötit seuraavia tietoja: " + 
-            "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
-            "\nSähköposti: " + form.email.data + 
-            "\nPuhelinnumero: " + form.phone.data + 
-            "\nKilta: " + form.kilta.data + 
+            "\n\nOlet ilmoittautunut pubivisaan. Syötit muun muassa seuraavia tietoja: " + 
+            "\n'Joukkueen nimi: " + form.teamname.data + 
+            "\n'Osallistujien nimet:\n" + form.etunimi0.data + form.sukunimi0.data + "\n" + 
+            form.etunimi1.data + form.sukunimi1.data + "\n" + 
+            form.etunimi2.data + form.sukunimi2.data + "\n" + 
+            form.etunimi3.data + form.sukunimi3.data + "\n" + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
             "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' ", form.email.data]
