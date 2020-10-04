@@ -60,6 +60,8 @@ else:
     file.close()
 
 
+KAPSI = False
+
 try:
     file = open("routes.conf", "r")
     lines = file.readlines()
@@ -107,6 +109,7 @@ def pubivisa():
     maxlimit = 50
     
     entrys = pubivisaModel.query.all()
+    count = 0
     for entry in entrys:
         count += entry.personcount
 
@@ -124,39 +127,39 @@ def pubivisa():
                                     form=form,
                                     page="pubivisa")
 
-    if etunimi0 != "" and sukunimi0 != "":
+    if form.etunimi0.data and form.sukunimi0.data:
         count += 1
-    if etunimi1 != "" and sukunimi1 != "":
+    if form.etunimi1.data and form.sukunimi1.data:
         count += 1
-    if etunimi2 != "" and sukunimi2 != "":
+    if form.etunimi2.data and form.sukunimi2.data:
         count += 1
-    if etunimi3 != "" and sukunimi3 != "":
+    if form.etunimi3.data and form.sukunimi3.data:
         count += 1
 
     if form.validate_on_submit() and count <= maxlimit:
         flash('Ilmoittautuminen onnistui')
         sub = pubivisaModel(
             teamname = form.teamname.data,
-            etunimi0 = form.etunimi.data,
-            sukunimi0 = form.sukunimi.data,
-            phone0 = form.phone.data,
-            email0 = form.email.data,
-            kilta0 = form.kilta.data,
-            etunimi1 = form.etunimi.data,
-            sukunimi1 = form.sukunimi.data,
-            phone1 = form.phone.data,
-            email1 = form.email.data,
-            kilta1 = form.kilta.data,
-            etunimi2 = form.etunimi.data,
-            sukunimi2 = form.sukunimi.data,
-            phone2 = form.phone.data,
-            email2 = form.email.data,
-            kilta2 = form.kilta.data,
-            etunimi3 = form.etunimi.data,
-            sukunimi3 = form.sukunimi.data,
-            phone3 = form.phone.data,
-            email3 = form.email.data,
-            kilta3 = form.kilta.data,
+            etunimi0 = form.etunimi0.data,
+            sukunimi0 = form.sukunimi0.data,
+            phone0 = form.phone0.data,
+            email0 = form.email0.data,
+            kilta0 = form.kilta0.data,
+            etunimi1 = form.etunimi1.data,
+            sukunimi1 = form.sukunimi1.data,
+            phone1 = form.phone1.data,
+            email1 = form.email1.data,
+            kilta1 = form.kilta1.data,
+            etunimi2 = form.etunimi2.data,
+            sukunimi2 = form.sukunimi2.data,
+            phone2 = form.phone2.data,
+            email2 = form.email2.data,
+            kilta2 = form.kilta2.data,
+            etunimi3 = form.etunimi3.data,
+            sukunimi3 = form.sukunimi3.data,
+            phone3 = form.phone3.data,
+            email3 = form.email3.data,
+            kilta3 = form.kilta3.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
 
