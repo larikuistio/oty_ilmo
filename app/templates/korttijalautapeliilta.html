@@ -8,6 +8,8 @@
 
     <h1>Kortti- ja lautapeli-ilta</h1>
 
+
+
     {% block ilmo %}
     <div class="container">
         <div>
@@ -26,7 +28,6 @@
             {{ wtf.form_field(form.phone) }}
             {{ wtf.form_field(form.email) }}
 
-            <label class="extra-label">Kilta *</label>
             {{ wtf.form_field(form.kilta) }}
 
             {{ wtf.form_field(form.consent0) }}

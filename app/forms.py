@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, SubmitField, RadioField, TextAreaField
+from wtforms import StringField, BooleanField, SubmitField, RadioField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, Optional, length, Required, InputRequired, Optional
 
 
@@ -54,18 +54,45 @@ class RequiredIfValue(InputRequired):
 
 
 class pubivisaForm(FlaskForm):
-    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    
-    kilta = RadioField('Kilta *', 
+    teamname = StringField('Joukkueen nimi *', validators=[DataRequired(), length(max=100)])
+
+    etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+    kilta0 = SelectField('Kilta *', 
         choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
         ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
         validators=[DataRequired()])
 
-    consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
-    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+    etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    phone1 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    email1 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+    kilta1 = SelectField('Kilta *', 
+        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
+        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
+        validators=[DataRequired()])
+
+    etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    phone2 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    email2 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+    kilta2 = SelectField('Kilta *', 
+        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
+        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
+        validators=[DataRequired()])
+
+    etunimi3 = StringField('Etunimi', validators=[length(max=50)])
+    sukunimi3 = StringField('Sukunimi', validators=[length(max=50)])
+    phone3 = StringField('Puhelinnumero', validators=[length(max=20)])
+    email3 = StringField('Sähköposti', validators=[Email(), length(max=100)])
+    kilta3 = SelectField('Kilta', 
+        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
+        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']))
+
+    consent0 = BooleanField('Sallin joukkueen nimen julkaisemisen osallistujalistassa')
+    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojen käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
     submit = SubmitField('Submit')
 
@@ -76,7 +103,7 @@ class korttijalautapeliiltaForm(FlaskForm):
     phone = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
     
-    kilta = RadioField('Kilta *', 
+    kilta = SelectField('Kilta *', 
         choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
         ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
         validators=[DataRequired()])

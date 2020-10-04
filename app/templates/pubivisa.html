@@ -20,14 +20,31 @@
         <form class="form form-horizontal" method="post" role="form">
             {{ form.hidden_tag() }}
 
-            {{ wtf.form_field(form.etunimi) }}
-            {{ wtf.form_field(form.sukunimi) }}
+            {{ wtf.form_field(form.teamname) }}
 
-            {{ wtf.form_field(form.phone) }}
-            {{ wtf.form_field(form.email) }}
+            {{ wtf.form_field(form.etunimi0) }}
+            {{ wtf.form_field(form.sukunimi0) }}
+            {{ wtf.form_field(form.phone0) }}
+            {{ wtf.form_field(form.email0) }}
+            {{ wtf.form_field(form.kilta0) }}
 
-            <label class="extra-label">Kilta *</label>
-            {{ wtf.form_field(form.kilta) }}
+            {{ wtf.form_field(form.etunimi1) }}
+            {{ wtf.form_field(form.sukunimi1) }}
+            {{ wtf.form_field(form.phone1) }}
+            {{ wtf.form_field(form.email1) }}
+            {{ wtf.form_field(form.kilta1) }}
+
+            {{ wtf.form_field(form.etunimi2) }}
+            {{ wtf.form_field(form.sukunimi2) }}
+            {{ wtf.form_field(form.phone2) }}
+            {{ wtf.form_field(form.email2) }}
+            {{ wtf.form_field(form.kilta2) }}
+
+            {{ wtf.form_field(form.etunimi3) }}
+            {{ wtf.form_field(form.sukunimi3) }}
+            {{ wtf.form_field(form.phone3) }}
+            {{ wtf.form_field(form.email3) }}
+            {{ wtf.form_field(form.kilta3) }}
 
             {{ wtf.form_field(form.consent0) }}
             {{ wtf.form_field(form.consent1) }}
