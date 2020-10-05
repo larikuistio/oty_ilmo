@@ -106,12 +106,12 @@ def index():
 def pubivisa():
     form = pubivisaForm()
 
-    starttime = datetime(2020, 10, 1, 12, 00, 00)
+    starttime = datetime(2020, 10, 7, 12, 00, 00)
     endtime = datetime(2020, 10, 10, 23, 59, 59)
     nowtime = datetime.now()
 
-    limit = 10
-    maxlimit = 10
+    limit = 50
+    maxlimit = 50
     
     entrys = pubivisaModel.query.all()
     count = 0
@@ -423,7 +423,7 @@ def korttijalautapeliilta_csv():
 def fuksilauluilta():
     form = fuksilauluiltaForm()
 
-    starttime = datetime(2020, 10, 7, 12, 00, 00)
+    starttime = datetime(2020, 10, 1, 12, 00, 00)
     endtime = datetime(2020, 10, 13, 23, 59, 59)
     nowtime = datetime.now()
 
