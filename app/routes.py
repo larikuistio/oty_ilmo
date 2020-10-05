@@ -94,14 +94,7 @@ def get_user_roles(user):
     return roles.get(user)
 
 
-@app.before_request
-def redirect_to_new_domain():
-    if KAPSI:
-        urlparts = urlparse(request.url)
-        if urlparts.netloc == 'lakka.n.kapsi.fi':
-            urlparts_list = list(urlparts)
-            urlparts_list[1] = 'ilmo.oty.fi'
-            return redirect(urlunparse(urlparts_list), code=301)
+
 
 
 @app.route('/')
