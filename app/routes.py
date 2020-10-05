@@ -317,10 +317,12 @@ def korttijalautapeliilta():
                                     form=form,
                                     page="korttijalautapeliilta")
 
-    validate = form.validate_on_submit()
-    submitted = form.is_submitted()
-
-    time.sleep(0.005)
+    if request.method == 'POST':
+        validate = form.validate_on_submit()
+        submitted = form.is_submitted()
+    else:
+        validate = False
+        submitted = False
 
     if validate and submitted and count <= maxlimit:
         flash('Ilmoittautuminen onnistui')
