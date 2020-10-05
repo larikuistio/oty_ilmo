@@ -26,5 +26,5 @@ RewriteRule ^(.*)$ http://lakka.n.kapsi.fi:62733/$1 [P]
 ```
 starting gunicorn
 ```shell
-gunicorn --workers=1 --worker-connections=400 --bind=0.0.0.0:62733 wsgi:app --name=ilmot --timeout 20
+gunicorn --workers=1 --worker-connections=400 --bind=0.0.0.0:62733 wsgi:app --name=ilmot --timeout 20 --daemon
 ```
