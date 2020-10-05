@@ -20,9 +20,9 @@ RewriteRule (.*) https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
 
 
 RewriteEngine On
-RewriteRule ^$ http://lakka.n.kapsi.fi:62733/ [P]
+RewriteRule ^$ https://lakka.n.kapsi.fi:62733/ [P]
 RewriteRule ^(index\.html)$ http://lakka.n.kapsi.fi:62733/ [P]
-RewriteRule ^(.*)$ http://lakka.n.kapsi.fi:62733/$1 [P]
+RewriteRule ^(.*)$ https://lakka.n.kapsi.fi:62733/$1 [P]
 ```
 starting gunicorn
 ```shell
