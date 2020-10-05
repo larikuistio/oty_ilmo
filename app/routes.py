@@ -95,8 +95,8 @@ def get_user_roles(user):
 
 
 @app.before_request
-if KAPSI:
-    def redirect_to_new_domain():
+def redirect_to_new_domain():
+    if KAPSI:
         urlparts = urlparse(request.url)
         if urlparts.netloc == 'lakka.n.kapsi.fi':
             urlparts_list = list(urlparts)
