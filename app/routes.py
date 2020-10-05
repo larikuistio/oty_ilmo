@@ -144,7 +144,14 @@ def pubivisa():
 
     totalcount += count
 
-    if form.validate_on_submit() and totalcount <= maxlimit:
+    if request.method == 'POST':
+        validate = form.validate_on_submit()
+        submitted = form.is_submitted()
+    else:
+        validate = False
+        submitted = False
+
+    if validate and submitted and totalcount <= maxlimit:
         flash('Ilmoittautuminen onnistui')
         sub = pubivisaModel(
             teamname = form.teamname.data,
@@ -236,13 +243,16 @@ def pubivisa():
             cmd = ' '.join(msg)
             returned_value = os.system(cmd)
 
-        return redirect(url_for('pubivisa'))
+        if KAPSI:
+            return redirect('https://ilmo.oty.fi/pubivisa')
+        else:
+            return redirect(url_for('pubivisa'))
 
-    elif form.is_submitted() and totalcount > maxlimit:
+    elif submitted and totalcount > maxlimit:
         totalcount -= count
         flash('Ilmoittautuminen on jo täynnä')
 
-    elif (not form.validate_on_submit() and form.is_submitted()):
+    elif (not validate) and submitted):
         flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
 
 
@@ -363,7 +373,7 @@ def korttijalautapeliilta():
     elif submitted and count > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
 
-    elif not validate and submitted:
+    elif (not validate) and submitted:
         flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
 
 
@@ -437,7 +447,14 @@ def fuksilauluilta():
                                     form=form,
                                     page="fuksilauluilta")
 
-    if form.validate_on_submit() and count <= maxlimit:
+    if request.method == 'POST':
+        validate = form.validate_on_submit()
+        submitted = form.is_submitted()
+    else:
+        validate = False
+        submitted = False
+
+    if validate and submitted and count <= maxlimit:
         flash('Ilmoittautuminen onnistui')
         sub = fuksilauluiltaModel(
             etunimi = form.etunimi.data,
@@ -463,12 +480,15 @@ def fuksilauluilta():
             cmd = ' '.join(msg)
             returned_value = os.system(cmd)
 
-        return redirect(url_for('fuksilauluilta'))
+        if KAPSI:
+            return redirect('https://ilmo.oty.fi/fuksilauluilta')
+        else:
+            return redirect(url_for('fuksilauluilta'))
 
-    elif form.is_submitted() and count > maxlimit:
+    elif submitted and count > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
 
-    elif (not form.validate_on_submit() and form.is_submitted()):
+    elif (not validate) and submitted:
         flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
 
 
