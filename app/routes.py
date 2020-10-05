@@ -303,7 +303,7 @@ def pubivisa_csv():
 def korttijalautapeliilta():
     form = korttijalautapeliiltaForm()
 
-    starttime = datetime(2020, 10, 1, 12, 00, 00)
+    starttime = datetime(2020, 10, 7, 12, 00, 00)
     endtime = datetime(2020, 10, 13, 23, 59, 59)
     nowtime = datetime.now()
 
@@ -423,12 +423,12 @@ def korttijalautapeliilta_csv():
 def fuksilauluilta():
     form = fuksilauluiltaForm()
 
-    starttime = datetime(2020, 10, 1, 12, 00, 00)
-    endtime = datetime(2020, 10, 12, 12, 00, 00)
+    starttime = datetime(2020, 10, 7, 12, 00, 00)
+    endtime = datetime(2020, 10, 13, 23, 59, 59)
     nowtime = datetime.now()
 
-    limit = 50
-    maxlimit = 50
+    limit = 70
+    maxlimit = 70
     
     entrys = fuksilauluiltaModel.query.all()
     count = fuksilauluiltaModel.query.count()
@@ -460,7 +460,6 @@ def fuksilauluilta():
             etunimi = form.etunimi.data,
             sukunimi = form.sukunimi.data,
             email = form.email.data,
-            consent0 = form.consent0.data,
             consent1 = form.consent1.data,
 
             datetime = nowtime,
@@ -506,7 +505,7 @@ def fuksilauluilta():
 @app.route('/fuksilauluilta_data', methods=['GET'])
 @auth.login_required(role=['admin', 'fuksilauluilta'])
 def fuksilauluilta_data():
-    limit = 50
+    limit = 70
 
     entries = fuksilauluiltaModel.query.all()
 

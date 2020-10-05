@@ -59,7 +59,6 @@ class fuksilauluiltaModel(db.Model):
     sukunimi = db.Column(db.String(64))
     email = db.Column(db.String(128))
     
-    consent0 = db.Column(db.Boolean())
     consent1 = db.Column(db.Boolean())
     
     datetime = db.Column(db.DateTime())
