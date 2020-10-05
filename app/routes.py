@@ -354,7 +354,10 @@ def korttijalautapeliilta():
             cmd = ' '.join(msg)
             returned_value = os.system(cmd)
 
-        return redirect(url_for('korttijalautapeliilta'))
+        if KAPSI:
+            return redirect('https://ilmo.oty.fi/korttijalautapeliilta')
+        else:
+            return redirect(url_for('korttijalautapeliilta'))
 
     elif form.is_submitted() and count > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
