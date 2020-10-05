@@ -30,36 +30,112 @@
             {{ form.hidden_tag() }}
 
             {{ wtf.form_field(form.teamname) }}
+            {% for e in form.teamname.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.etunimi0) }}
+            {% for e in form.etunimi0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.sukunimi0) }}
+            {% for e in form.sukunimi0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.phone0) }}
+            {% for e in form.phone0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.email0) }}
+            {% for e in form.email0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.kilta0) }}
+            {% for e in form.kilta0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.etunimi1) }}
+            {% for e in form.etunimi1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.sukunimi1) }}
+            {% for e in form.sukunimi1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.phone1) }}
+            {% for e in form.phone1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.email1) }}
+            {% for e in form.email1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.kilta1) }}
+            {% for e in form.kilta1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.etunimi2) }}
+            {% for e in form.etunimi2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.sukunimi2) }}
+            {% for e in form.sukunimi2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.phone2) }}
+            {% for e in form.phone2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.email2) }}
+            {% for e in form.email2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.kilta2) }}
+            {% for e in form.kilta2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.etunimi3) }}
+            {% for e in form.etunimi3.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.sukunimi3) }}
+            {% for e in form.sukunimi3.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.phone3) }}
+            {% for e in form.phone3.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.email3) }}
+            {% for e in form.email3.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.kilta3) }}
+            {% for e in form.kilta3.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.consent0) }}
+            {% for e in form.consent0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.consent1) }}
+            {% for e in form.consent1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.consent2) }}
+            {% for e in form.consent2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
+
 
             <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
+            {% for e in form.submit.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             <p>Ilmoittautuminen päättyy {{ endtime }}</p>
 
@@ -71,10 +147,10 @@
         {% endif %}
 
 
-        <h3>Osallistujat: {{ count }}/{{ limit }}</h3>
+        <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
         {% for entry in entrys%}
         {% if entry.consent0 %}
-        <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+        <p>{{ entry.teamname }}
             {% if loop.index > limit %}
             (Varasijalla)
             {% endif %}

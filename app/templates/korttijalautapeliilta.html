@@ -27,18 +27,45 @@
             {{ form.hidden_tag() }}
 
             {{ wtf.form_field(form.etunimi) }}
+            {% for e in form.etunimi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.sukunimi) }}
+            {% for e in form.sukunimi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.phone) }}
+            {% for e in form.phone.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.email) }}
+            {% for e in form.email.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.kilta) }}
+            {% for e in form.kilta.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.consent0) }}
+            {% for e in form.consent0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.consent1) }}
+            {% for e in form.consent1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
             {{ wtf.form_field(form.consent2) }}
+            {% for e in form.consent2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
+            {% for e in form.submit.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             <p>Ilmoittautuminen päättyy {{ endtime }}</p>
 

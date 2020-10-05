@@ -53,6 +53,7 @@ class RequiredIfValue(InputRequired):
 
 
 
+
 class pubivisaForm(FlaskForm):
     teamname = StringField('Joukkueen nimi *', validators=[DataRequired(), length(max=100)])
 
@@ -86,7 +87,7 @@ class pubivisaForm(FlaskForm):
     etunimi3 = StringField('Etunimi', validators=[length(max=50)])
     sukunimi3 = StringField('Sukunimi', validators=[length(max=50)])
     phone3 = StringField('Puhelinnumero', validators=[length(max=20)])
-    email3 = StringField('Sähköposti', validators=[Email(), length(max=100)])
+    email3 = StringField('Sähköposti', validators=[length(max=100)])
     kilta3 = SelectField('Kilta', 
         choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
         ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']))
