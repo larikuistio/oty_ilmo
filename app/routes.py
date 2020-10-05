@@ -360,7 +360,7 @@ def korttijalautapeliilta():
     elif submitted and count > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
 
-    elif (not validate and submitted:
+    elif not validate and submitted:
         flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
 
 
