@@ -184,7 +184,7 @@ def pubivisa():
             form.etunimi3.data + form.sukunimi3.data + "\n" + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
-            "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' ", form.email.data]
+            "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' ", form.email0.data]
 
             cmd = msg
             returned_value = os.system(cmd)
