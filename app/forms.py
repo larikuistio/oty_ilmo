@@ -93,8 +93,9 @@ class pubivisaForm(FlaskForm):
 
     consent0 = BooleanField('Sallin joukkueen nimen julkaisemisen osallistujalistassa')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojen käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+    consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova *', validators=[DataRequired()])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Ilmoittaudu')
 
 
 class korttijalautapeliiltaForm(FlaskForm):
@@ -110,8 +111,9 @@ class korttijalautapeliiltaForm(FlaskForm):
 
     consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+    consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova *', validators=[DataRequired()])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Ilmoittaudu')
 
 
 class fuksilauluiltaForm(FlaskForm):
@@ -122,4 +124,4 @@ class fuksilauluiltaForm(FlaskForm):
     consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Ilmoittaudu')

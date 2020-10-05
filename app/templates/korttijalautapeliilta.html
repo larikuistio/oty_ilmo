@@ -8,14 +8,18 @@
 
     <h1>Kortti- ja lautapeli-ilta</h1>
 
-
+    <p><strong>Mikäli olet sairas etkä pääsekään paikalle,
+            ole yhteydessä Riikka Haatajaan 0442828255 (Whatsapp, Telegram tai tekstiviesti)
+        </strong></p>
 
     {% block ilmo %}
     <div class="container p-3">
         <div>
             <h4>{{ title }}</h4>
             <h6>* merkityt kohdat pakollisia</h6>
-            <h6><a href="{{ url_for('static',filename='tietosuojaseloste_korttijalautapeliilta.pdf') }}">Tietosuojaseloste</a></h6>
+            <h6><a
+                    href="{{ url_for('static',filename='tietosuojaseloste_korttijalautapeliilta.pdf') }}">Tietosuojaseloste</a>
+            </h6>
 
         </div>
         {% if starttime < nowtime < endtime %}
@@ -32,6 +36,7 @@
 
             {{ wtf.form_field(form.consent0) }}
             {{ wtf.form_field(form.consent1) }}
+            {{ wtf.form_field(form.consent2) }}
 
             <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
 

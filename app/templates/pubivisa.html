@@ -8,6 +8,15 @@
 
     <h1>Pubivisa</h1>
 
+    <p>Ilmoita koko joukkue (3-4 henkilöä) kerralla. Ilmoittautumisia otetaan vastaan, 
+        jos ilmoittautuneiden yhteenlaskettu määrä joukkueenne mukaan lukien on korkeintaan 
+        50
+    </p>
+
+    <p><strong>Mikäli olet sairas etkä pääsekään paikalle,
+        ole yhteydessä Riikka Haatajaan 0442828255 (Whatsapp, Telegram tai tekstiviesti)
+    </strong></p>
+
     {% block ilmo %}
     <div class="container p-3">
         <div>
@@ -48,6 +57,7 @@
 
             {{ wtf.form_field(form.consent0) }}
             {{ wtf.form_field(form.consent1) }}
+            {{ wtf.form_field(form.consent2) }}
 
             <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
 
