@@ -175,15 +175,15 @@ def pubivisa():
         db.session.commit()
 
         if KAPSI:
-            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
-            "\n\nOlet ilmoittautunut pubivisaan. Syötit muun muassa seuraavia tietoja: " + 
-            "\n'Joukkueen nimi: " + form.teamname.data + 
-            "\n'Osallistujien nimet:\n" + form.etunimi0.data + form.sukunimi0.data + "\n" + 
-            form.etunimi1.data + form.sukunimi1.data + "\n" + 
-            form.etunimi2.data + form.sukunimi2.data + "\n" + 
-            form.etunimi3.data + form.sukunimi3.data + "\n" + 
-            "\n\nÄlä vastaa tähän sähköpostiin" + 
-            "\n\nTerveisin: ropottilari\"" + 
+            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + \
+            "\n\nOlet ilmoittautunut pubivisaan. Syötit muun muassa seuraavia tietoja: " + \
+            "\n'Joukkueen nimi: " + form.teamname.data + \
+            "\n'Osallistujien nimet:\n" + form.etunimi0.data + form.sukunimi0.data + "\n" + \
+            form.etunimi1.data + form.sukunimi1.data + "\n" + \
+            form.etunimi2.data + form.sukunimi2.data + "\n" + \
+            form.etunimi3.data + form.sukunimi3.data + "\n" + \
+            "\n\nÄlä vastaa tähän sähköpostiin" + \
+            "\n\nTerveisin: ropottilari\"" + \
             "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' " + form.email0.data
 
             cmd = msg
@@ -288,14 +288,14 @@ def korttijalautapeliilta():
         db.session.commit()
 
         if KAPSI:
-            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
-            "\n\nOlet ilmoittautunut kortti- ja lautapeli-iltaan. Syötit seuraavia tietoja: " + 
-            "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
-            "\nSähköposti: " + form.email.data + 
-            "\nPuhelinnumero: " + form.phone.data + 
-            "\nKilta: " + form.kilta.data + 
-            "\n\nÄlä vastaa tähän sähköpostiin" + 
-            "\n\nTerveisin: ropottilari\"" + 
+            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + \
+            "\n\nOlet ilmoittautunut kortti- ja lautapeli-iltaan. Syötit seuraavia tietoja: " + \
+            "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + \
+            "\nSähköposti: " + form.email.data + \
+            "\nPuhelinnumero: " + form.phone.data + \
+            "\nKilta: " + form.kilta.data + \
+            "\n\nÄlä vastaa tähän sähköpostiin" + \
+            "\n\nTerveisin: ropottilari\"" + \
             "|mail -aFrom:no-reply@oty.fi -s 'kortti- ja lautapeli-ilta ilmoittautuminen' " + form.email.data
 
             cmd = msg
@@ -395,12 +395,12 @@ def fuksilauluilta():
         db.session.commit()
 
         if KAPSI:
-            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
-            "\n\nOlet ilmoittautunut fuksilauluiltaan. Syötit seuraavia tietoja: " + 
-            "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
-            "\nSähköposti: " + form.email.data + 
-            "\n\nÄlä vastaa tähän sähköpostiin" + 
-            "\n\nTerveisin: ropottilari\"" + 
+            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + \
+            "\n\nOlet ilmoittautunut fuksilauluiltaan. Syötit seuraavia tietoja: " + \
+            "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + \
+            "\nSähköposti: " + form.email.data + \
+            "\n\nÄlä vastaa tähän sähköpostiin" + \
+            "\n\nTerveisin: ropottilari\"" + \
             "|mail -aFrom:no-reply@oty.fi -s 'fuksilauluilta ilmoittautuminen' " + form.email.data
 
             cmd = msg
