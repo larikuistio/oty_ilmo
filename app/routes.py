@@ -102,11 +102,11 @@ def pubivisa():
     form = pubivisaForm()
 
     starttime = datetime(2020, 10, 1, 12, 00, 00)
-    endtime = datetime(2020, 10, 12, 12, 00, 00)
+    endtime = datetime(2020, 10, 10, 23, 59, 59)
     nowtime = datetime.now()
 
-    limit = 50
-    maxlimit = 50
+    limit = 10
+    maxlimit = 10
     
     entrys = pubivisaModel.query.all()
     count = 0
@@ -120,7 +120,7 @@ def pubivisa():
 
             return render_template('pubivisa.html', title='pubivisa ilmoittautuminen',
                                     entrys=entrys,
-                                    count=count,
+                                    totalcount=totalcount,
                                     starttime=starttime,
                                     endtime=endtime,
                                     nowtime=nowtime,
@@ -192,6 +192,7 @@ def pubivisa():
         return redirect(url_for('pubivisa'))
 
     elif form.is_submitted() and totalcount > maxlimit:
+        totalcount -= count
         flash('Ilmoittautuminen on jo täynnä')
 
     elif (not form.validate_on_submit() and form.is_submitted()):
@@ -200,7 +201,7 @@ def pubivisa():
 
     return render_template('pubivisa.html', title='pubivisa ilmoittautuminen',
                             entrys=entrys,
-                            count=count,
+                            totalcount=totalcount,
                             starttime=starttime,
                             endtime=endtime,
                             nowtime=nowtime,
@@ -246,7 +247,7 @@ def korttijalautapeliilta():
     form = korttijalautapeliiltaForm()
 
     starttime = datetime(2020, 10, 1, 12, 00, 00)
-    endtime = datetime(2020, 10, 12, 12, 00, 00)
+    endtime = datetime(2020, 10, 13, 23, 59, 59)
     nowtime = datetime.now()
 
     limit = 50
