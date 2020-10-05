@@ -121,7 +121,6 @@ class fuksilauluiltaForm(FlaskForm):
     sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
     
-    consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
     submit = SubmitField('Ilmoittaudu')
