@@ -175,7 +175,7 @@ def pubivisa():
         db.session.commit()
 
         if KAPSI:
-            msg = ["echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
+            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
             "\n\nOlet ilmoittautunut pubivisaan. Syötit muun muassa seuraavia tietoja: " + 
             "\n'Joukkueen nimi: " + form.teamname.data + 
             "\n'Osallistujien nimet:\n" + form.etunimi0.data + form.sukunimi0.data + "\n" + 
@@ -184,7 +184,7 @@ def pubivisa():
             form.etunimi3.data + form.sukunimi3.data + "\n" + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
-            "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' ", form.email0.data]
+            "|mail -aFrom:no-reply@oty.fi -s 'pubivisa ilmoittautuminen' " + form.email0.data
 
             cmd = msg
             returned_value = os.system(cmd)
@@ -288,7 +288,7 @@ def korttijalautapeliilta():
         db.session.commit()
 
         if KAPSI:
-            msg = ["echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
+            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
             "\n\nOlet ilmoittautunut kortti- ja lautapeli-iltaan. Syötit seuraavia tietoja: " + 
             "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
             "\nSähköposti: " + form.email.data + 
@@ -296,7 +296,7 @@ def korttijalautapeliilta():
             "\nKilta: " + form.kilta.data + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
-            "|mail -aFrom:no-reply@oty.fi -s 'kortti- ja lautapeli-ilta ilmoittautuminen' ", form.email.data]
+            "|mail -aFrom:no-reply@oty.fi -s 'kortti- ja lautapeli-ilta ilmoittautuminen' " + form.email.data
 
             cmd = msg
             returned_value = os.system(cmd)
@@ -395,13 +395,13 @@ def fuksilauluilta():
         db.session.commit()
 
         if KAPSI:
-            msg = ["echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
+            msg = "echo \"Hei" + form.etunimi.data + form.sukunimi.data + 
             "\n\nOlet ilmoittautunut fuksilauluiltaan. Syötit seuraavia tietoja: " + 
             "\n'Nimi: " + form.etunimi.data + form.sukunimi.data + 
             "\nSähköposti: " + form.email.data + 
             "\n\nÄlä vastaa tähän sähköpostiin" + 
             "\n\nTerveisin: ropottilari\"" + 
-            "|mail -aFrom:no-reply@oty.fi -s 'fuksilauluilta ilmoittautuminen' ", form.email.data]
+            "|mail -aFrom:no-reply@oty.fi -s 'fuksilauluilta ilmoittautuminen' " + form.email.data
 
             cmd = msg
             returned_value = os.system(cmd)
