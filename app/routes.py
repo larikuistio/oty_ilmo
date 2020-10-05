@@ -316,7 +316,12 @@ def korttijalautapeliilta():
                                     form=form,
                                     page="korttijalautapeliilta")
 
-    if form.validate_on_submit() and count <= maxlimit:
+    validate = form.validate_on_submit()
+    submitted = form.is_submitted()
+
+    time.sleep(0.005)
+
+    if validate and submitted and count <= maxlimit:
         flash('Ilmoittautuminen onnistui')
         sub = korttijalautapeliiltaModel(
             etunimi = form.etunimi.data,
@@ -352,10 +357,10 @@ def korttijalautapeliilta():
         else:
             return redirect(url_for('korttijalautapeliilta'))
 
-    elif form.is_submitted() and count > maxlimit:
+    elif submitted and count > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
 
-    elif (not form.validate_on_submit() and form.is_submitted()):
+    elif (not validate and submitted:
         flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
 
 
