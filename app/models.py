@@ -30,6 +30,7 @@ class pubivisaModel(db.Model):
     
     consent0 = db.Column(db.Boolean())
     consent1 = db.Column(db.Boolean())
+    consent2 = db.Column(db.Boolean())
 
     datetime = db.Column(db.DateTime())
 
@@ -47,6 +48,7 @@ class korttijalautapeliiltaModel(db.Model):
     
     consent0 = db.Column(db.Boolean())
     consent1 = db.Column(db.Boolean())
+    consent2 = db.Column(db.Boolean())
     
     datetime = db.Column(db.DateTime())
 

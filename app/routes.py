@@ -95,7 +95,7 @@ def get_user_roles(user):
 
 @app.route('/')
 def index():
-    return("foobar")
+    return render_template('index.html', title='OTY:n ilmot', page="index")
 
 @app.route('/pubivisa', methods=['GET', 'POST'])
 def pubivisa():
@@ -110,8 +110,9 @@ def pubivisa():
     
     entrys = pubivisaModel.query.all()
     count = 0
+    totalcount = 0
     for entry in entrys:
-        count += entry.personcount
+        totalcount += entry.personcount
 
     for entry in entrys:
         if(entry.teamname == form.teamname.data):
@@ -136,7 +137,9 @@ def pubivisa():
     if form.etunimi3.data and form.sukunimi3.data:
         count += 1
 
-    if form.validate_on_submit() and count <= maxlimit:
+    totalcount += count
+
+    if form.validate_on_submit() and totalcount <= maxlimit:
         flash('Ilmoittautuminen onnistui')
         sub = pubivisaModel(
             teamname = form.teamname.data,
@@ -162,8 +165,11 @@ def pubivisa():
             kilta3 = form.kilta3.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
+            consent2 = form.consent2.data,
 
-            datetime = nowtime,
+            personcount = count,
+
+            datetime = nowtime
         )
         db.session.add(sub)
         db.session.commit()
@@ -185,7 +191,7 @@ def pubivisa():
 
         return redirect(url_for('pubivisa'))
 
-    elif form.is_submitted() and count > maxlimit:
+    elif form.is_submitted() and totalcount > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
 
     elif (not form.validate_on_submit() and form.is_submitted()):
@@ -273,8 +279,9 @@ def korttijalautapeliilta():
             kilta = form.kilta.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
+            consent2 = form.consent2.data,
 
-            datetime = nowtime,
+            datetime = nowtime
         )
         db.session.add(sub)
         db.session.commit()
