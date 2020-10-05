@@ -5,7 +5,7 @@ from flask_bootstrap import Bootstrap
 from config import Config
 from flask_wtf.csrf import CSRFProtect, CSRFError
 
-#csrf = CSRFProtect()
+csrf = CSRFProtect()
 
 app = Flask(__name__)
 Bootstrap(app)

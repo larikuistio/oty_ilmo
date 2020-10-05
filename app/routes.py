@@ -93,6 +93,17 @@ def verify_password(username, password):
 def get_user_roles(user):
     return roles.get(user)
 
+
+@app.before_request
+if KAPSI:
+    def redirect_to_new_domain():
+        urlparts = urlparse(request.url)
+        if urlparts.netloc == 'lakka.n.kapsi.fi':
+            urlparts_list = list(urlparts)
+            urlparts_list[1] = 'ilmo.oty.fi'
+            return redirect(urlunparse(urlparts_list), code=301)
+
+
 @app.route('/')
 def index():
     return render_template('index.html', title='OTY:n ilmot', page="index")
