@@ -67,10 +67,10 @@ try:
     lines = file.readlines()
 
     for line in lines:
-        conf_line = line.split(":", 1)
+        conf_line = line.split(":", 2)
         
-        if conf_line[0] == "kapsi":
-            if conf_line[1] == "true":
+        if "kapsi" in conf_line[0]:
+            if "true" in conf_line[1]:
                 KAPSI = True
             else:
                 KAPSI = False
