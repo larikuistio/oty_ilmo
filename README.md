@@ -4,6 +4,7 @@ Event registration forms for Oulun Teekkariyhdistys ry
 ## run development server
 ```shell
 python3 -m venv env
+source env/bin/activate
 pip install -r requirements
 export FLASK_APP=app.py
 flask run
