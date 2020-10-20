@@ -5,8 +5,8 @@ from app import app, db
 from datetime import datetime, date, time, timedelta
 import requests
 from sqlalchemy import and_
-from app.forms import pubivisaForm, korttijalautapeliiltaForm, fuksilauluiltaForm
-from app.models import pubivisaModel, korttijalautapeliiltaModel, fuksilauluiltaModel
+from app.forms import pubivisaForm, korttijalautapeliiltaForm, fuksilauluiltaForm, slumberpartyForm
+from app.models import pubivisaModel, korttijalautapeliiltaModel, fuksilauluiltaModel, slumberpartyModel
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
 from app import sqlite_to_csv
@@ -540,8 +540,8 @@ def fuksilauluilta_csv():
 def slumberparty():
     form = slumberpartyForm()
 
-    starttime = datetime(2020, 10, 21, 12, 00, 00)
-    endtime = datetime(2020, 10, 26, 23, 59, 59)
+    starttime = datetime(2020, 10, 20, 17, 00, 00)
+    endtime = datetime(2020, 10, 27, 23, 59, 59)
     nowtime = datetime.now()
 
     limit = 50
