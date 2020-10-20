@@ -532,3 +532,125 @@ def fuksilauluilta_csv():
     except FileNotFoundError as e:
         print(e)
         abort(404)
+
+
+
+
+@app.route('/slumberparty', methods=['GET', 'POST'])
+def slumberparty():
+    form = slumberpartyForm()
+
+    starttime = datetime(2020, 10, 21, 12, 00, 00)
+    endtime = datetime(2020, 10, 26, 23, 59, 59)
+    nowtime = datetime.now()
+
+    limit = 50
+    maxlimit = 50
+    
+    entrys = slumberpartyModel.query.all()
+    count = slumberpartyModel.query.count()
+
+    for entry in entrys:
+        if(entry.etunimi == form.etunimi.data and entry.sukunimi == form.sukunimi.data):
+            flash('Olet jo ilmoittautunut')
+
+            return render_template('slumberparty.html', title='slumberparty ilmoittautuminen',
+                                    entrys=entrys,
+                                    count=count,
+                                    starttime=starttime,
+                                    endtime=endtime,
+                                    nowtime=nowtime,
+                                    limit=limit,
+                                    form=form,
+                                    page="slumberparty")
+
+    if request.method == 'POST':
+        validate = form.validate_on_submit()
+        submitted = form.is_submitted()
+    else:
+        validate = False
+        submitted = False
+
+    if validate and submitted and count <= maxlimit:
+        flash('Ilmoittautuminen onnistui')
+        sub = slumberpartyModel(
+            etunimi = form.etunimi.data,
+            sukunimi = form.sukunimi.data,
+            phone = form.phone.data,
+            email = form.email.data,
+            kilta = form.kilta.data,
+            consent0 = form.consent0.data,
+            consent1 = form.consent1.data,
+            consent2 = form.consent2.data,
+
+            datetime = nowtime
+        )
+        db.session.add(sub)
+        db.session.commit()
+
+        if KAPSI:
+            msg = ["echo \"Hei", str(form.etunimi.data), str(form.sukunimi.data),
+            "\n\nOlet ilmoittautunut slumberpartyyn. Syötit seuraavia tietoja: ",
+            "\n'Nimi: ", str(form.etunimi.data), str(form.sukunimi.data),
+            "\nSähköposti: ", str(form.email.data),
+            "\nPuhelinnumero: ", str(form.phone.data),
+            "\nKilta: ", str(form.kilta.data),
+            "\n\nÄlä vastaa tähän sähköpostiin",
+            "\n\nTerveisin: ropottilari\"",
+            "|mail -aFrom:no-reply@oty.fi -s 'slumberparty ilmoittautuminen' ", str(form.email.data)]
+
+            cmd = ' '.join(msg)
+            returned_value = os.system(cmd)
+
+        if KAPSI:
+            return redirect('https://ilmo.oty.fi/slumberparty')
+        else:
+            return redirect(url_for('slumberparty'))
+
+    elif submitted and count > maxlimit:
+        flash('Ilmoittautuminen on jo täynnä')
+
+    elif (not validate) and submitted:
+        flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
+
+
+    return render_template('slumberparty.html', title='slumberparty ilmoittautuminen',
+                            entrys=entrys,
+                            count=count,
+                            starttime=starttime,
+                            endtime=endtime,
+                            nowtime=nowtime,
+                            limit=limit,
+                            form=form,
+                            page="slumberparty")
+
+@app.route('/slumberparty_data', methods=['GET'])
+@auth.login_required(role=['admin', 'slumberparty'])
+def slumberparty_data():
+    limit = 50
+
+    entries = slumberpartyModel.query.all()
+
+    count = slumberpartyModel.query.count()
+
+    return render_template('slumberparty_data.html', title='slumberparty data',
+                           entries=entries,
+                           count=count,
+                           limit=limit)
+
+@app.route('/slumberparty_data/slumberparty_model_data.csv')
+@auth.login_required(role=['admin', 'slumberparty'])
+def slumberparty_csv():
+
+    os.system('mkdir csv')
+
+    sqlite_to_csv.exportToCSV('slumberparty_model')
+
+    dir = os.path.join(os.getcwd(), 'csv/')
+    
+    try:
+        print(dir)
+        return send_from_directory(directory=dir, filename='slumberparty_model_data.csv', as_attachment=True)
+    except FileNotFoundError as e:
+        print(e)
+        abort(404)
