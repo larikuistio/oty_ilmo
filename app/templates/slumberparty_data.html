@@ -1,0 +1,100 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% extends "header.html" %}
+
+{% block content %}
+
+<div class="container p-3">
+    <h1>{{ title }}</h1>
+
+    <a href="{{ url_for('slumberparty_csv') }}"><button class="btn btn-info">Lataa
+            CSV</button></a>
+    <div>
+        <h2>Osallistujat</h2>
+        <h3>{{ count }}/{{ limit }}</h3>
+        <table class="table" rules="all">
+            <thead>
+                <tr>
+                    <td>
+                        N&emsp;&emsp;
+                    </td>
+                    <td>
+                        etunimi&emsp;&emsp;
+                    </td>
+                    <td>
+                        sukunimi&emsp;&emsp;
+                    </td>
+                    <td>
+                        phone&emsp;&emsp;
+                    </td>
+                    <td>
+                        email&emsp;&emsp;
+                    </td>
+                    <td>
+                        kilta&emsp;&emsp;
+                    </td>
+                    <td>
+                        hyväksyn nimen julkaisemisen&emsp;&emsp;
+                    </td>
+                    <td>
+                        hyväksyn tietosuojaselosteen&emsp;&emsp;
+                    </td>
+                    <td>
+                        ymmärrän että ilmoittautuminen on sitova&emsp;&emsp;
+                    </td>
+                    <td>
+                        datetime&emsp;&emsp;
+                    </td>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ loop.index }}.
+                        {% if loop.index > limit %}
+                        (Vara)
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ entry.etunimi }}
+                    </td>
+                    <td>
+                        {{ entry.sukunimi }}
+                    </td>
+                    <td>
+                        {{ entry.phone }}
+                    </td>
+                    <td>
+                        {{ entry.email }}
+                    </td>
+                    <td>
+                        {{ entry.kilta }}
+                    </td>
+                    <td>
+                        {{ entry.consent0 }}
+                    </td>
+                    <td>
+                        {{ entry.consent1 }}
+                    </td>
+                    <td>
+                        {{ entry.consent2 }}
+                    </td>
+                    <td>
+                        {{ entry.datetime }}
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

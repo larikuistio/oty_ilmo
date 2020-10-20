@@ -124,3 +124,20 @@ class fuksilauluiltaForm(FlaskForm):
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
     submit = SubmitField('Ilmoittaudu')
+
+
+class slumberpartyForm(FlaskForm):
+    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    phone = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+    
+    kilta = SelectField('Kilta *', 
+        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
+        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']))
+
+    consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
+    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+    consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova *', validators=[DataRequired()])
+
+    submit = SubmitField('Ilmoittaudu')
