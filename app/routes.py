@@ -540,7 +540,7 @@ def fuksilauluilta_csv():
 def slumberparty():
     form = slumberpartyForm()
 
-    starttime = datetime(2020, 10, 20, 17, 00, 00)
+    starttime = datetime(2020, 10, 21, 12, 00, 00)
     endtime = datetime(2020, 10, 27, 23, 59, 59)
     nowtime = datetime.now()
 
