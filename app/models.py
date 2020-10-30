@@ -85,7 +85,8 @@ class exitModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     aika = db.Column(db.String(16))
-    huone = db.Column(db.String(128))
+    huone1800 = db.Column(db.String(128))
+    huone1930 = db.Column(db.String(128))
 
     etunimi0 = db.Column(db.String(64))
     sukunimi0 = db.Column(db.String(64))

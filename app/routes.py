@@ -664,8 +664,8 @@ def exit():
     endtime = datetime(2020, 10, 27, 23, 59, 59)
     nowtime = datetime.now()
 
-    limit = 50
-    maxlimit = 50
+    limit = 20
+    maxlimit = 20
     
     entrys = exitModel.query.all()
     count = exitModel.query.count()
@@ -673,6 +673,20 @@ def exit():
     for entry in entrys:
         if(entry.etunimi == form.etunimi0.data and entry.sukunimi0 == form.sukunimi.data):
             flash('Olet jo ilmoittautunut')
+
+            return render_template('exit.html', title='exit ilmoittautuminen',
+                                    entrys=entrys,
+                                    count=count,
+                                    starttime=starttime,
+                                    endtime=endtime,
+                                    nowtime=nowtime,
+                                    limit=limit,
+                                    form=form,
+                                    page="exit")
+
+    for entry in entrys:
+        if(entry.aika == form.aika.data and entry.huone == form.huone.data):
+            flash('Valisemasi huone on jo varattu valitsemanasi aikana')
 
             return render_template('exit.html', title='exit ilmoittautuminen',
                                     entrys=entrys,
@@ -758,7 +772,7 @@ def exit():
 @app.route('/exit', methods=['GET'])
 @auth.login_required(role=['admin', 'exit'])
 def exit():
-    limit = 50
+    limit = 20
 
     entries = exit.query.all()
 
