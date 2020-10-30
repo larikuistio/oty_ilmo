@@ -1,0 +1,160 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% extends "header.html" %}
+
+{% block content %}
+
+<div class="container p-3">
+    <h1>{{ title }}</h1>
+
+    <a href="{{ url_for('exit_csv') }}"><button class="btn btn-info">Lataa
+            CSV</button></a>
+    <div>
+        <h2>Osallistujat</h2>
+        <h3>{{ count }}/{{ limit }}</h3>
+        <table class="table" rules="all">
+            <thead>
+                <tr>
+                    <td>
+                        N&emsp;&emsp;
+                    </td>
+                    <td>
+                        aika&emsp;&emsp;
+                    </td>
+                    <td>
+                        huone1800&emsp;&emsp;
+                    </td>
+                    <td>
+                        huone1930&emsp;&emsp;
+                    </td>
+                    <td>
+                        etunimi0&emsp;&emsp;
+                    </td>
+                    <td>
+                        sukunimi0&emsp;&emsp;
+                    </td>
+                    <td>
+                        phone0&emsp;&emsp;
+                    </td>
+                    <td>
+                        email0&emsp;&emsp;
+                    </td>
+                    <td>
+                        etunimi1&emsp;&emsp;
+                    </td>
+                    <td>
+                        sukunimi1&emsp;&emsp;
+                    </td>
+                    <td>
+                        etunimi2&emsp;&emsp;
+                    </td>
+                    <td>
+                        sukunimi2&emsp;&emsp;
+                    </td>
+                    <td>
+                        etunimi3&emsp;&emsp;
+                    </td>
+                    <td>
+                        sukunimi3&emsp;&emsp;
+                    </td>
+                    <td>
+                        etunimi4&emsp;&emsp;
+                    </td>
+                    <td>
+                        sukunimi4&emsp;&emsp;
+                    </td>
+                    <td>
+                        etunimi5&emsp;&emsp;
+                    </td>
+                    <td>
+                        sukunimi5&emsp;&emsp;
+                    </td>
+                    <td>
+                        hyväksyn tietosuojaselosteen&emsp;&emsp;
+                    </td>
+                    <td>
+                        datetime&emsp;&emsp;
+                    </td>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ loop.index }}.
+                        {% if loop.index > limit %}
+                        (Vara)
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ entry.aika }}
+                    </td>
+                    <td>
+                        {{ entry.huone1800 }}
+                    </td>
+                    <td>
+                        {{ entry.huone1930 }}
+                    </td>
+                    <td>
+                        {{ entry.etunimi0 }}
+                    </td>
+                    <td>
+                        {{ entry.sukunimi0 }}
+                    </td>
+                    <td>
+                        {{ entry.phone0 }}
+                    </td>
+                    <td>
+                        {{ entry.email0 }}
+                    </td>
+                    <td>
+                        {{ entry.etunimi1 }}
+                    </td>
+                    <td>
+                        {{ entry.sukunimi1 }}
+                    </td>
+                    <td>
+                        {{ entry.etunimi2 }}
+                    </td>
+                    <td>
+                        {{ entry.sukunimi2 }}
+                    </td>
+                    <td>
+                        {{ entry.etunimi3 }}
+                    </td>
+                    <td>
+                        {{ entry.sukunimi3 }}
+                    </td>
+                    <td>
+                        {{ entry.etunimi4 }}
+                    </td>
+                    <td>
+                        {{ entry.sukunimi4 }}
+                    </td>
+                    <td>
+                        {{ entry.etunimi5 }}
+                    </td>
+                    <td>
+                        {{ entry.sukunimi5 }}
+                    </td>
+                    <td>
+                        {{ entry.consent0 }}
+                    </td>
+                    <td>
+                        {{ entry.datetime }}
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

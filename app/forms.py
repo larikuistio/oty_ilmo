@@ -150,7 +150,7 @@ class exitForm(FlaskForm):
         choices=(['18:00', '18:00'], ['19:30', '19:30']), 
         validators=[DataRequired()])
 
-    huone = SelectField('Huone *', 
+    huone1800 = SelectField('Huone *', 
         choices=(['Pommi (Uusikatu)', 'Pommi (Uusikatu)'], 
         ['Kuolleen miehen saari (Uusikatu)', 'Kuolleen miehen saari (Uusikatu)'], 
         ['Temppelin kirous (Uusikatu)', 'Temppelin kirous (Uusikatu)'], 
@@ -161,7 +161,23 @@ class exitForm(FlaskForm):
         ['The SAW (Kirkkokatu)', 'The SAW (Kirkkokatu)'], 
         ['Alcatraz (Kirkkokatu)', 'Alcatraz (Kirkkokatu)'], 
         ['Matka maailman ympäri (Kirkkokatu)', 'Matka maailman ympäri (Kirkkokatu)'],
-        validators=[DataRequired()])
+        ['', ''],
+        validators=[RequiredIfValue(other_field_name='aika', value='18:00')])
+
+    huone1930 = SelectField('Huone *', 
+        choices=(['Pommi (Uusikatu)', 'Pommi (Uusikatu)'], 
+        ['Kuolleen miehen saari (Uusikatu)', 'Kuolleen miehen saari (Uusikatu)'], 
+        ['Temppelin kirous (Uusikatu)', 'Temppelin kirous (Uusikatu)'], 
+        ['Velhon perintö (Uusikatu)', 'Velhon perintö (Uusikatu)'], 
+        ['Murhamysteeri (Kajaaninkatu)', 'Murhamysteeri (Kajaaninkatu)'], 
+        ['Vankilapako (Kajaaninkatu)', 'Vankilapako (Kajaaninkatu)'], 
+        ['Professorin arvoitus (Kajaaninkatu)', 'Professorin arvoitus (Kajaaninkatu)'], 
+        ['The SAW (Kirkkokatu)', 'The SAW (Kirkkokatu)'], 
+        ['Alcatraz (Kirkkokatu)', 'Alcatraz (Kirkkokatu)'], 
+        ['Matka maailman ympäri (Kirkkokatu)', 'Matka maailman ympäri (Kirkkokatu)'],
+        ['', ''],
+        validators=[RequiredIfValue(other_field_name='aika', value='19:30')])
+
 
     etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
@@ -174,15 +190,15 @@ class exitForm(FlaskForm):
     etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-    etunimi3 = StringField('Etunimi', validators=[DataRequired(), length(max=50)])
-    sukunimi3 = StringField('Sukunimi', validators=[DataRequired(), length(max=50)])
+    etunimi3 = StringField('Etunim *', validators=[DataRequired(), length(max=50)])
+    sukunimi3 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-    etunimi4 = StringField('Etunimi', validators=[DataRequired(), length(max=50)])
-    sukunimi4 = StringField('Sukunimi', validators=[DataRequired(), length(max=50)])
+    etunimi4 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi4 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-    etunimi5 = StringField('Etunimi', validators=[DataRequired(), length(max=50)])
-    sukunimi5 = StringField('Sukunimi', validators=[DataRequired(), length(max=50)])
+    etunimi5 = StringField('Etunimi', validators=[length(max=50)])
+    sukunimi5 = StringField('Sukunimi', validators=[length(max=50)])
 
-    consent0 = BooleanField('Sallin joukkueen nimen julkaisemisen osallistujalistassa')
+    consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
     submit = SubmitField('Ilmoittaudu')
