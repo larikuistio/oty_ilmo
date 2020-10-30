@@ -78,3 +78,35 @@ class slumberpartyModel(db.Model):
     consent2 = db.Column(db.Boolean())
     
     datetime = db.Column(db.DateTime())
+
+
+
+class exitModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    aika = db.Column(db.String(16))
+    huone = db.Column(db.String(128))
+
+    etunimi0 = db.Column(db.String(64))
+    sukunimi0 = db.Column(db.String(64))
+    phone0 = db.Column(db.String(32))
+    email0 = db.Column(db.String(128))
+
+    etunimi1 = db.Column(db.String(64))
+    sukunimi1 = db.Column(db.String(64))
+
+    etunimi2 = db.Column(db.String(64))
+    sukunimi2 = db.Column(db.String(64))
+
+    etunimi3 = db.Column(db.String(64))
+    sukunimi3 = db.Column(db.String(64))
+
+    etunimi4 = db.Column(db.String(64))
+    sukunimi4 = db.Column(db.String(64))
+
+    etunimi5 = db.Column(db.String(64))
+    sukunimi5 = db.Column(db.String(64))
+    
+    consent0 = db.Column(db.Boolean())
+
+    datetime = db.Column(db.DateTime())

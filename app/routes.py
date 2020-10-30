@@ -654,3 +654,134 @@ def slumberparty_csv():
     except FileNotFoundError as e:
         print(e)
         abort(404)
+
+
+@app.route('/exit', methods=['GET', 'POST'])
+def exit():
+    form = exitForm()
+
+    starttime = datetime(2020, 10, 21, 12, 00, 00)
+    endtime = datetime(2020, 10, 27, 23, 59, 59)
+    nowtime = datetime.now()
+
+    limit = 50
+    maxlimit = 50
+    
+    entrys = exitModel.query.all()
+    count = exitModel.query.count()
+
+    for entry in entrys:
+        if(entry.etunimi == form.etunimi0.data and entry.sukunimi0 == form.sukunimi.data):
+            flash('Olet jo ilmoittautunut')
+
+            return render_template('exit.html', title='exit ilmoittautuminen',
+                                    entrys=entrys,
+                                    count=count,
+                                    starttime=starttime,
+                                    endtime=endtime,
+                                    nowtime=nowtime,
+                                    limit=limit,
+                                    form=form,
+                                    page="exit")
+
+    if request.method == 'POST':
+        validate = form.validate_on_submit()
+        submitted = form.is_submitted()
+    else:
+        validate = False
+        submitted = False
+
+    if validate and submitted and count <= maxlimit:
+        flash('Ilmoittautuminen onnistui')
+        sub = exitModel(
+            aika = form.aika.data,
+            huone = form.huone.data,
+            etunimi0 = form.etunimi0.data,
+            sukunimi0 = form.sukunimi0.data,
+            phone0 = form.phone.data,
+            email0 = form.email.data,
+            
+            etunimi1 = form.etunimi1.data,
+            sukunimi1 = form.sukunimi1.data,
+            etunimi2 = form.etunimi2.data,
+            sukunimi2 = form.sukunimi2.data,
+            etunimi3 = form.etunimi3.data,
+            sukunimi3 = form.sukunimi3.data,
+            etunimi4 = form.etunimi4.data,
+            sukunimi4 = form.sukunimi4.data,
+            etunimi5 = form.etunimi5.data,
+            sukunimi5 = form.sukunimi5.data,
+
+            consent0 = form.consent0.data,
+
+            datetime = nowtime
+        )
+        db.session.add(sub)
+        db.session.commit()
+
+        if KAPSI:
+            msg = ["echo \"Hei", str(form.etunimi.data), str(form.sukunimi.data),
+            "\n\nOlet ilmoittautunut slumberpartyyn. Syötit seuraavia tietoja: ",
+            "\n'Nimi: ", str(form.etunimi.data), str(form.sukunimi.data),
+            "\nSähköposti: ", str(form.email.data),
+            "\nPuhelinnumero: ", str(form.phone.data),
+            "\nKilta: ", str(form.kilta.data),
+            "\n\nÄlä vastaa tähän sähköpostiin",
+            "\n\nTerveisin: ropottilari\"",
+            "|mail -aFrom:no-reply@oty.fi -s 'slumberparty ilmoittautuminen' ", str(form.email.data)]
+
+            cmd = ' '.join(msg)
+            returned_value = os.system(cmd)
+
+        if KAPSI:
+            return redirect('https://ilmo.oty.fi/exit')
+        else:
+            return redirect(url_for('exit'))
+
+    elif submitted and count > maxlimit:
+        flash('Ilmoittautuminen on jo täynnä')
+
+    elif (not validate) and submitted:
+        flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
+
+
+    return render_template('exit.html', title='exit ilmoittautuminen',
+                            entrys=entrys,
+                            count=count,
+                            starttime=starttime,
+                            endtime=endtime,
+                            nowtime=nowtime,
+                            limit=limit,
+                            form=form,
+                            page="exit")
+
+@app.route('/exit', methods=['GET'])
+@auth.login_required(role=['admin', 'exit'])
+def exit():
+    limit = 50
+
+    entries = exit.query.all()
+
+    count = exit.query.count()
+
+    return render_template('exit.html', title='exit data',
+                           entries=entries,
+                           count=count,
+                           limit=limit)
+
+@app.route('/exit_data/exit_model_data.csv')
+@auth.login_required(role=['admin', 'exit'])
+def exit_csv():
+
+    os.system('mkdir csv')
+
+    sqlite_to_csv.exportToCSV('exit_model')
+
+    dir = os.path.join(os.getcwd(), 'csv/')
+    
+    try:
+        print(dir)
+        return send_from_directory(directory=dir, filename='exit_model_data.csv', as_attachment=True)
+    except FileNotFoundError as e:
+        print(e)
+        abort(404)

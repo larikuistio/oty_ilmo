@@ -141,3 +141,48 @@ class slumberpartyForm(FlaskForm):
     consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova *', validators=[DataRequired()])
 
     submit = SubmitField('Ilmoittaudu')
+
+
+
+class exitForm(FlaskForm):
+
+    aika = SelectField('Aika *', 
+        choices=(['18:00', '18:00'], ['19:30', '19:30']), 
+        validators=[DataRequired()])
+
+    huone = SelectField('Huone *', 
+        choices=(['Pommi (Uusikatu)', 'Pommi (Uusikatu)'], 
+        ['Kuolleen miehen saari (Uusikatu)', 'Kuolleen miehen saari (Uusikatu)'], 
+        ['Temppelin kirous (Uusikatu)', 'Temppelin kirous (Uusikatu)'], 
+        ['Velhon perintö (Uusikatu)', 'Velhon perintö (Uusikatu)'], 
+        ['Murhamysteeri (Kajaaninkatu)', 'Murhamysteeri (Kajaaninkatu)'], 
+        ['Vankilapako (Kajaaninkatu)', 'Vankilapako (Kajaaninkatu)'], 
+        ['Professorin arvoitus (Kajaaninkatu)', 'Professorin arvoitus (Kajaaninkatu)'], 
+        ['The SAW (Kirkkokatu)', 'The SAW (Kirkkokatu)'], 
+        ['Alcatraz (Kirkkokatu)', 'Alcatraz (Kirkkokatu)'], 
+        ['Matka maailman ympäri (Kirkkokatu)', 'Matka maailman ympäri (Kirkkokatu)'],
+        validators=[DataRequired()])
+
+    etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+
+    etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+
+    etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+
+    etunimi3 = StringField('Etunimi', validators=[DataRequired(), length(max=50)])
+    sukunimi3 = StringField('Sukunimi', validators=[DataRequired(), length(max=50)])
+
+    etunimi4 = StringField('Etunimi', validators=[DataRequired(), length(max=50)])
+    sukunimi4 = StringField('Sukunimi', validators=[DataRequired(), length(max=50)])
+
+    etunimi5 = StringField('Etunimi', validators=[DataRequired(), length(max=50)])
+    sukunimi5 = StringField('Sukunimi', validators=[DataRequired(), length(max=50)])
+
+    consent0 = BooleanField('Sallin joukkueen nimen julkaisemisen osallistujalistassa')
+
+    submit = SubmitField('Ilmoittaudu')
