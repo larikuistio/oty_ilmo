@@ -659,7 +659,6 @@ def slumberparty_csv():
 
 @app.route('/pakohuone', methods=['GET', 'POST'])
 def pakohuone():
-    form = pakohuoneForm()
 
     starttime = datetime(2020, 10, 21, 12, 00, 00)
     endtime = datetime(2020, 11, 27, 23, 59, 59)
@@ -677,6 +676,8 @@ def pakohuone():
 
     test = [("lskdjf", "sljf", "sldkjf"), ("lskdjf", "sljf", "sldkjf")]
     print(json.dumps(test))
+
+    form = pakohuoneForm(entrys)
 
     for entry in entrys:
         if(entry.etunimi == form.etunimi0.data and entry.sukunimi0 == form.sukunimi.data):

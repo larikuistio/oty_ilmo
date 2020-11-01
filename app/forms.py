@@ -146,37 +146,61 @@ class slumberpartyForm(FlaskForm):
 
 class pakohuoneForm(FlaskForm):
 
+    text0 = 'Pommi (Uusikatu)(vapaa)'
+    text1 = 'Kuolleen miehen saari (Uusikatu)(vapaa)'
+    text2 = 'Temppelin kirous (Uusikatu)(vapaa)'
+    text3 = 'Velhon perintö (Uusikatu)(vapaa)'
+    text4 = 'Murhamysteeri (Kajaaninkatu)(vapaa)'
+    text5 = 'Vankilapako (Kajaaninkatu)(vapaa)'
+    text6 = 'Professorin arvoitus (Kajaaninkatu)(vapaa)'
+    text7 = 'The SAW (Kirkkokatu)(vapaa)'
+    text8 = 'Alcatraz (Kirkkokatu)(vapaa)'
+    text9 = 'Matka maailman ympäri (Kirkkokatu)(vapaa)'
+    text10 = 'Pommi (Uusikatu)(vapaa)'
+    text11 = 'Kuolleen miehen saari (Uusikatu)(vapaa)'
+    text12 = 'Temppelin kirous (Uusikatu)(vapaa)'
+    text13 = 'Velhon perintö (Uusikatu)(vapaa)'
+    text14 = 'Murhamysteeri (Kajaaninkatu)(vapaa)'
+    text15 = 'Vankilapako (Kajaaninkatu)(vapaa)'
+    text16 = 'Professorin arvoitus (Kajaaninkatu)(vapaa)'
+    text17 = 'The SAW (Kirkkokatu)(vapaa)'
+    text18 = 'Alcatraz (Kirkkokatu)(vapaa)'
+    text19 = 'Matka maailman ympäri (Kirkkokatu)(vapaa)'
+
+
     aika = RadioField('Aika *', 
         choices=(['18:00', '18:00'], ['19:30', '19:30']), 
         validators=[DataRequired()])
 
     huone1800 = SelectField('Huone (18:00) *', 
-        choices=(['Pommi (Uusikatu)', 'Pommi (Uusikatu)'], 
-        ['Kuolleen miehen saari (Uusikatu)', 'Kuolleen miehen saari (Uusikatu)'], 
-        ['Temppelin kirous (Uusikatu)', 'Temppelin kirous (Uusikatu)'], 
-        ['Velhon perintö (Uusikatu)', 'Velhon perintö (Uusikatu)'], 
-        ['Murhamysteeri (Kajaaninkatu)', 'Murhamysteeri (Kajaaninkatu)'], 
-        ['Vankilapako (Kajaaninkatu)', 'Vankilapako (Kajaaninkatu)'], 
-        ['Professorin arvoitus (Kajaaninkatu)', 'Professorin arvoitus (Kajaaninkatu)'], 
-        ['The SAW (Kirkkokatu)', 'The SAW (Kirkkokatu)'], 
-        ['Alcatraz (Kirkkokatu)', 'Alcatraz (Kirkkokatu)'], 
-        ['Matka maailman ympäri (Kirkkokatu)', 'Matka maailman ympäri (Kirkkokatu)'],
+        choices=(['Pommi (Uusikatu)', text0], 
+        ['Kuolleen miehen saari (Uusikatu)', text1], 
+        ['Temppelin kirous (Uusikatu)', text2], 
+        ['Velhon perintö (Uusikatu)', text3], 
+        ['Murhamysteeri (Kajaaninkatu)', text4], 
+        ['Vankilapako (Kajaaninkatu)', text5], 
+        ['Professorin arvoitus (Kajaaninkatu)', text6], 
+        ['The SAW (Kirkkokatu)', text7], 
+        ['Alcatraz (Kirkkokatu)', text8], 
+        ['Matka maailman ympäri (Kirkkokatu)', text9],
         ['', '']),
-        validators=[RequiredIfValue(other_field_name='aika', value='18:00')])
+        validators=[RequiredIfValue(other_field_name='aika', value='18:00')], 
+        default=(['', '']))
 
     huone1930 = SelectField('Huone (19:30) *', 
-        choices=(['Pommi (Uusikatu)', 'Pommi (Uusikatu)'], 
-        ['Kuolleen miehen saari (Uusikatu)', 'Kuolleen miehen saari (Uusikatu)'], 
-        ['Temppelin kirous (Uusikatu)', 'Temppelin kirous (Uusikatu)'], 
-        ['Velhon perintö (Uusikatu)', 'Velhon perintö (Uusikatu)'], 
-        ['Murhamysteeri (Kajaaninkatu)', 'Murhamysteeri (Kajaaninkatu)'], 
-        ['Vankilapako (Kajaaninkatu)', 'Vankilapako (Kajaaninkatu)'], 
-        ['Professorin arvoitus (Kajaaninkatu)', 'Professorin arvoitus (Kajaaninkatu)'], 
-        ['The SAW (Kirkkokatu)', 'The SAW (Kirkkokatu)'], 
-        ['Alcatraz (Kirkkokatu)', 'Alcatraz (Kirkkokatu)'], 
-        ['Matka maailman ympäri (Kirkkokatu)', 'Matka maailman ympäri (Kirkkokatu)'],
+        choices=(['Pommi (Uusikatu)', text10], 
+        ['Kuolleen miehen saari (Uusikatu)', text11], 
+        ['Temppelin kirous (Uusikatu)', text12], 
+        ['Velhon perintö (Uusikatu)', text13], 
+        ['Murhamysteeri (Kajaaninkatu)', text14], 
+        ['Vankilapako (Kajaaninkatu)', text15], 
+        ['Professorin arvoitus (Kajaaninkatu)', text16], 
+        ['The SAW (Kirkkokatu)', text17], 
+        ['Alcatraz (Kirkkokatu)', text18], 
+        ['Matka maailman ympäri (Kirkkokatu)', text19],
         ['', '']),
-        validators=[RequiredIfValue(other_field_name='aika', value='19:30')])
+        validators=[RequiredIfValue(other_field_name='aika', value='19:30')], 
+        default=(['', '']))
 
 
     etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
@@ -202,3 +226,50 @@ class pakohuoneForm(FlaskForm):
     consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
     submit = SubmitField('Ilmoittaudu')
+
+
+    def __init__(self, entrys):
+        for entry in entrys:
+            if(entry.aika == "18:00"):
+                if(entry.huone1800 == 'Pommi (Uusikatu)'):
+                    self.text0 = 'Pommi (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Kuolleen miehen saari (Uusikatu)'):
+                    self.text1 = 'Kuolleen miehen saari (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Temppelin kirous (Uusikatu)'):
+                    self.text2 = 'Temppelin kirous (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Velhon perintö (Uusikatu)'):
+                    self.text3 = 'Velhon perintö (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Murhamysteeri (Kajaaninkatu)'):
+                    self.text4 = 'Murhamysteeri (Kajaaninkatu)(varattu)'
+                elif(entry.huone1800 == 'Vankilapako (Kajaaninkatu)'):
+                    self.text5 = 'Vankilapako (Kajaaninkatu)(varattu)'
+                elif(entry.huone1800 == 'Professorin arvoitus (Kajaaninkatu)'):
+                    self.text6 = 'Professorin arvoitus (Kajaaninkatu)(varattu)'
+                elif(entry.huone1800 == 'The SAW (Kirkkokatu)'):
+                    self.text7 = 'The SAW (Kirkkokatu)(varattu)'
+                elif(entry.huone1800 == 'Alcatraz (Kirkkokatu)'):
+                    self.text8 = 'Alcatraz (Kirkkokatu)(varattu)'
+                elif(entry.huone1800 == 'Matka maailman ympäri (Kirkkokatu)'):
+                    self.text9 = 'Matka maailman ympäri (Kirkkokatu)(varattu)'
+
+            elif(entry.aika == "19:30"):
+                if(entry.huone1800 == 'Pommi (Uusikatu)'):
+                    self.text10 = 'Pommi (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Kuolleen miehen saari (Uusikatu)'):
+                    self.text11 = 'Kuolleen miehen saari (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Temppelin kirous (Uusikatu)'):
+                    self.text12 = 'Temppelin kirous (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Velhon perintö (Uusikatu)'):
+                    self.text13 = 'Velhon perintö (Uusikatu)(varattu)'
+                elif(entry.huone1800 == 'Murhamysteeri (Kajaaninkatu)'):
+                    self.text14 = 'Murhamysteeri (Kajaaninkatu)(varattu)'
+                elif(entry.huone1800 == 'Vankilapako (Kajaaninkatu)'):
+                    self.text15 = 'Vankilapako (Kajaaninkatu)(varattu)'
+                elif(entry.huone1800 == 'Professorin arvoitus (Kajaaninkatu)'):
+                    self.text16 = 'Professorin arvoitus (Kajaaninkatu)(varattu)'
+                elif(entry.huone1800 == 'The SAW (Kirkkokatu)'):
+                    self.text17 = 'The SAW (Kirkkokatu)(varattu)'
+                elif(entry.huone1800 == 'Alcatraz (Kirkkokatu)'):
+                    self.text18 = 'Alcatraz (Kirkkokatu)(varattu)'
+                elif(entry.huone1800 == 'Matka maailman ympäri (Kirkkokatu)'):
+                    self.text19 = 'Matka maailman ympäri (Kirkkokatu)(varattu)'
