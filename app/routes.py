@@ -5,8 +5,8 @@ from app import app, db
 from datetime import datetime, date, time, timedelta
 import requests
 from sqlalchemy import and_
-from app.forms import pubivisaForm, korttijalautapeliiltaForm, fuksilauluiltaForm, slumberpartyForm
-from app.models import pubivisaModel, korttijalautapeliiltaModel, fuksilauluiltaModel, slumberpartyModel
+from app.forms import pubivisaForm, korttijalautapeliiltaForm, fuksilauluiltaForm, slumberpartyForm, pakohuoneForm
+from app.models import pubivisaModel, korttijalautapeliiltaModel, fuksilauluiltaModel, slumberpartyModel, pakohuoneModel
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
 from app import sqlite_to_csv
@@ -14,6 +14,7 @@ from werkzeug.datastructures import MultiDict
 from urllib.parse import urlparse, urlunparse
 import subprocess
 import time
+import json
 
 auth = HTTPBasicAuth()
 
@@ -656,25 +657,32 @@ def slumberparty_csv():
         abort(404)
 
 
-@app.route('/exit', methods=['GET', 'POST'])
-def exit():
-    form = exitForm()
+@app.route('/pakohuone', methods=['GET', 'POST'])
+def pakohuone():
+    form = pakohuoneForm()
 
     starttime = datetime(2020, 10, 21, 12, 00, 00)
-    endtime = datetime(2020, 10, 27, 23, 59, 59)
+    endtime = datetime(2020, 11, 27, 23, 59, 59)
     nowtime = datetime.now()
 
     limit = 20
     maxlimit = 20
     
-    entrys = exitModel.query.all()
-    count = exitModel.query.count()
+    entrys = pakohuoneModel.query.all()
+    count = pakohuoneModel.query.count()
+
+    varatut = []
+    for entry in entrys:
+        varatut.append((entry.aika, entry.huone1800, entry.huone1930))
+
+    test = [("lskdjf", "sljf", "sldkjf"), ("lskdjf", "sljf", "sldkjf")]
+    print(json.dumps(test))
 
     for entry in entrys:
         if(entry.etunimi == form.etunimi0.data and entry.sukunimi0 == form.sukunimi.data):
             flash('Olet jo ilmoittautunut')
 
-            return render_template('exit.html', title='exit ilmoittautuminen',
+            return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
                                     entrys=entrys,
                                     count=count,
                                     starttime=starttime,
@@ -682,13 +690,14 @@ def exit():
                                     nowtime=nowtime,
                                     limit=limit,
                                     form=form,
-                                    page="exit")
+                                    varatut=json.dumps(varatut),
+                                    page="pakohuone")
 
     for entry in entrys:
         if(entry.aika == form.aika.data and entry.huone == form.huone.data):
             flash('Valisemasi huone on jo varattu valitsemanasi aikana')
 
-            return render_template('exit.html', title='exit ilmoittautuminen',
+            return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
                                     entrys=entrys,
                                     count=count,
                                     starttime=starttime,
@@ -696,7 +705,9 @@ def exit():
                                     nowtime=nowtime,
                                     limit=limit,
                                     form=form,
-                                    page="exit")
+                                    varatut=json.dumps(varatut),
+                                    page="pakohuone")
+
 
     if request.method == 'POST':
         validate = form.validate_on_submit()
@@ -707,7 +718,7 @@ def exit():
 
     if validate and submitted and count <= maxlimit:
         flash('Ilmoittautuminen onnistui')
-        sub = exitModel(
+        sub = pakohuoneModel(
             aika = form.aika.data,
             huone = form.huone.data,
             etunimi0 = form.etunimi0.data,
@@ -748,9 +759,9 @@ def exit():
             returned_value = os.system(cmd)
 
         if KAPSI:
-            return redirect('https://ilmo.oty.fi/exit')
+            return redirect('https://ilmo.oty.fi/pakohuone')
         else:
-            return redirect(url_for('exit'))
+            return redirect(url_for('pakohuone'))
 
     elif submitted and count > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
@@ -759,7 +770,7 @@ def exit():
         flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
 
 
-    return render_template('exit.html', title='exit ilmoittautuminen',
+    return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
                             entrys=entrys,
                             count=count,
                             starttime=starttime,
@@ -767,35 +778,36 @@ def exit():
                             nowtime=nowtime,
                             limit=limit,
                             form=form,
-                            page="exit")
+                            varatut=json.dumps(varatut),
+                            page="pakohuone")
 
-@app.route('/exit', methods=['GET'])
-@auth.login_required(role=['admin', 'exit'])
-def exit():
+@app.route('/pakohuone', methods=['GET'])
+@auth.login_required(role=['admin', 'pakohuone'])
+def pakohuone_data():
     limit = 20
 
-    entries = exit.query.all()
+    entries = pakohuone.query.all()
 
-    count = exit.query.count()
+    count = pakohuone.query.count()
 
-    return render_template('exit.html', title='exit data',
+    return render_template('pakohuone.html', title='pakohuone data',
                            entries=entries,
                            count=count,
                            limit=limit)
 
-@app.route('/exit_data/exit_model_data.csv')
-@auth.login_required(role=['admin', 'exit'])
-def exit_csv():
+@app.route('/pakohuone_data/pakohuone_model_data.csv')
+@auth.login_required(role=['admin', 'pakohuone'])
+def pakohuone_csv():
 
     os.system('mkdir csv')
 
-    sqlite_to_csv.exportToCSV('exit_model')
+    sqlite_to_csv.exportToCSV('pakohuone_model')
 
     dir = os.path.join(os.getcwd(), 'csv/')
     
     try:
         print(dir)
-        return send_from_directory(directory=dir, filename='exit_model_data.csv', as_attachment=True)
+        return send_from_directory(directory=dir, filename='pakohuone_model_data.csv', as_attachment=True)
     except FileNotFoundError as e:
         print(e)
         abort(404)

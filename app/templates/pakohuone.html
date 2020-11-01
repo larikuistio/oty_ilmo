@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<script src="{{ url_for('static',filename='exit.js') }}"></script>
+<script src="{{ url_for('static',filename='pakohuone.js') }}"></script>
 
 <div class="container p-3">
 
@@ -19,7 +19,7 @@
         <div>
             <h4>{{ title }}</h4>
             <h6>* merkityt kohdat pakollisia</h6>
-            <h6><a href="{{ url_for('static',filename='tietosuojaseloste_exit.pdf') }}">Tietosuojaseloste</a></h6>
+            <h6><a href="{{ url_for('static',filename='tietosuojaseloste_pakohuone.pdf') }}">Tietosuojaseloste</a></h6>
 
         </div>
         {% if starttime < nowtime < endtime %}
@@ -32,7 +32,7 @@
             <p>
                 {% endfor %}
 
-            <div id="huone1800" class="inset hide_">
+            <div id="huone1800" style="display: none;">
                 {{ wtf.form_field(form.huone1800) }}
                 {% for e in form.huone1800.errors %}
                 <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
@@ -40,7 +40,7 @@
                     {% endfor %}
             </div>
 
-            <div id="huone1930" class="inset hide_">
+            <div id="huone1930" style="display: none;">
                 {{ wtf.form_field(form.huone1930) }}
                 {% for e in form.huone1930.errors %}
                 <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
@@ -146,8 +146,8 @@
         {% endif %}
 
 
-        <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
-        {% for entry in entrys%}
+        <h3>Osallistujat: {{ count }}/{{ limit }}</h3>
+        <!--{% for entry in entrys%}
         {% if entry.consent0 %}
         <p>{{ entry.teamname }}
             {% if loop.index > limit %}
@@ -155,7 +155,7 @@
             {% endif %}
         </p>
         {% endif %}
-        {% endfor %}
+        {% endfor %}-->
 
 
     </div>
