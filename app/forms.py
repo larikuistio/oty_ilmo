@@ -144,13 +144,13 @@ class slumberpartyForm(FlaskForm):
 
 
 
-class exitForm(FlaskForm):
+class pakohuoneForm(FlaskForm):
 
-    aika = SelectField('Aika *', 
+    aika = RadioField('Aika *', 
         choices=(['18:00', '18:00'], ['19:30', '19:30']), 
         validators=[DataRequired()])
 
-    huone1800 = SelectField('Huone *', 
+    huone1800 = SelectField('Huone (18:00) *', 
         choices=(['Pommi (Uusikatu)', 'Pommi (Uusikatu)'], 
         ['Kuolleen miehen saari (Uusikatu)', 'Kuolleen miehen saari (Uusikatu)'], 
         ['Temppelin kirous (Uusikatu)', 'Temppelin kirous (Uusikatu)'], 
@@ -161,10 +161,10 @@ class exitForm(FlaskForm):
         ['The SAW (Kirkkokatu)', 'The SAW (Kirkkokatu)'], 
         ['Alcatraz (Kirkkokatu)', 'Alcatraz (Kirkkokatu)'], 
         ['Matka maailman ympäri (Kirkkokatu)', 'Matka maailman ympäri (Kirkkokatu)'],
-        ['', ''],
+        ['', '']),
         validators=[RequiredIfValue(other_field_name='aika', value='18:00')])
 
-    huone1930 = SelectField('Huone *', 
+    huone1930 = SelectField('Huone (19:30) *', 
         choices=(['Pommi (Uusikatu)', 'Pommi (Uusikatu)'], 
         ['Kuolleen miehen saari (Uusikatu)', 'Kuolleen miehen saari (Uusikatu)'], 
         ['Temppelin kirous (Uusikatu)', 'Temppelin kirous (Uusikatu)'], 
@@ -175,7 +175,7 @@ class exitForm(FlaskForm):
         ['The SAW (Kirkkokatu)', 'The SAW (Kirkkokatu)'], 
         ['Alcatraz (Kirkkokatu)', 'Alcatraz (Kirkkokatu)'], 
         ['Matka maailman ympäri (Kirkkokatu)', 'Matka maailman ympäri (Kirkkokatu)'],
-        ['', ''],
+        ['', '']),
         validators=[RequiredIfValue(other_field_name='aika', value='19:30')])
 
 

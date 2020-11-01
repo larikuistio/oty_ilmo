@@ -81,7 +81,7 @@ class slumberpartyModel(db.Model):
 
 
 
-class exitModel(db.Model):
+class pakohuoneModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     aika = db.Column(db.String(16))
