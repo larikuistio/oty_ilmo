@@ -671,85 +671,15 @@ def pakohuone():
     count = pakohuoneModel.query.count()
 
     varatut = []
+    varatut.append(('18:00', '', ''))
+    varatut.append(('19:30', '', ''))
     for entry in entrys:
         varatut.append((entry.aika, entry.huone1800, entry.huone1930))
 
-    test = [("lskdjf", "sljf", "sldkjf"), ("lskdjf", "sljf", "sldkjf")]
-    print(json.dumps(test))
-
-    texts = [''] * 20
-
-    texts[0] = 'Pommi (Uusikatu)(vapaa)'
-    texts[1] = 'Kuolleen miehen saari (Uusikatu)(vapaa)'
-    texts[2] = 'Temppelin kirous (Uusikatu)(vapaa)'
-    texts[3] = 'Velhon perintö (Uusikatu)(vapaa)'
-    texts[4] = 'Murhamysteeri (Kajaaninkatu)(vapaa)'
-    texts[5] = 'Vankilapako (Kajaaninkatu)(vapaa)'
-    texts[6] = 'Professorin arvoitus (Kajaaninkatu)(vapaa)'
-    texts[7] = 'The SAW (Kirkkokatu)(vapaa)'
-    texts[8] = 'Alcatraz (Kirkkokatu)(vapaa)'
-    texts[9] = 'Matka maailman ympäri (Kirkkokatu)(vapaa)'
-    texts[10] = 'Pommi (Uusikatu)(vapaa)'
-    texts[11] = 'Kuolleen miehen saari (Uusikatu)(vapaa)'
-    texts[12] = 'Temppelin kirous (Uusikatu)(vapaa)'
-    texts[13] = 'Velhon perintö (Uusikatu)(vapaa)'
-    texts[14] = 'Murhamysteeri (Kajaaninkatu)(vapaa)'
-    texts[15] = 'Vankilapako (Kajaaninkatu)(vapaa)'
-    texts[16] = 'Professorin arvoitus (Kajaaninkatu)(vapaa)'
-    texts[17] = 'The SAW (Kirkkokatu)(vapaa)'
-    texts[18] = 'Alcatraz (Kirkkokatu)(vapaa)'
-    texts[19] = 'Matka maailman ympäri (Kirkkokatu)(vapaa)'
+    form = pakohuoneForm()
 
     for entry in entrys:
-        if(entry.aika == "18:00"):
-            if(entry.huone1800 == 'Pommi (Uusikatu)'):
-                texts[0] = 'Pommi (Uusikatu)(varattu)'
-            elif(entry.huone1800 == 'Kuolleen miehen saari (Uusikatu)'):
-                texts[1] = 'Kuolleen miehen saari (Uusikatu)(varattu)'
-            elif(entry.huone1800 == 'Temppelin kirous (Uusikatu)'):
-                texts[2] = 'Temppelin kirous (Uusikatu)(varattu)'
-            elif(entry.huone1800 == 'Velhon perintö (Uusikatu)'):
-                texts[3] = 'Velhon perintö (Uusikatu)(varattu)'
-            elif(entry.huone1800 == 'Murhamysteeri (Kajaaninkatu)'):
-                texts[4] = 'Murhamysteeri (Kajaaninkatu)(varattu)'
-            elif(entry.huone1800 == 'Vankilapako (Kajaaninkatu)'):
-                texts[5] = 'Vankilapako (Kajaaninkatu)(varattu)'
-            elif(entry.huone1800 == 'Professorin arvoitus (Kajaaninkatu)'):
-                texts[6] = 'Professorin arvoitus (Kajaaninkatu)(varattu)'
-            elif(entry.huone1800 == 'The SAW (Kirkkokatu)'):
-                texts[7] = 'The SAW (Kirkkokatu)(varattu)'
-            elif(entry.huone1800 == 'Alcatraz (Kirkkokatu)'):
-                texts[8] = 'Alcatraz (Kirkkokatu)(varattu)'
-            elif(entry.huone1800 == 'Matka maailman ympäri (Kirkkokatu)'):
-                texts[9] = 'Matka maailman ympäri (Kirkkokatu)(varattu)'
-
-        elif(entry.aika == "19:30"):
-            if(entry.huone1930 == 'Pommi (Uusikatu)'):
-                texts[10] = 'Pommi (Uusikatu)(varattu)'
-            elif(entry.huone1930 == 'Kuolleen miehen saari (Uusikatu)'):
-                texts[11] = 'Kuolleen miehen saari (Uusikatu)(varattu)'
-            elif(entry.huone1930 == 'Temppelin kirous (Uusikatu)'):
-                texts[12] = 'Temppelin kirous (Uusikatu)(varattu)'
-            elif(entry.huone1930 == 'Velhon perintö (Uusikatu)'):
-                texts[13] = 'Velhon perintö (Uusikatu)(varattu)'
-            elif(entry.huone1930 == 'Murhamysteeri (Kajaaninkatu)'):
-                texts[14] = 'Murhamysteeri (Kajaaninkatu)(varattu)'
-            elif(entry.huone1930 == 'Vankilapako (Kajaaninkatu)'):
-                texts[15] = 'Vankilapako (Kajaaninkatu)(varattu)'
-            elif(entry.huone1930 == 'Professorin arvoitus (Kajaaninkatu)'):
-                texts[16] = 'Professorin arvoitus (Kajaaninkatu)(varattu)'
-            elif(entry.huone1930 == 'The SAW (Kirkkokatu)'):
-                texts[17] = 'The SAW (Kirkkokatu)(varattu)'
-            elif(entry.huone1930 == 'Alcatraz (Kirkkokatu)'):
-                texts[18] = 'Alcatraz (Kirkkokatu)(varattu)'
-            elif(entry.huone1930 == 'Matka maailman ympäri (Kirkkokatu)'):
-                texts[19] = 'Matka maailman ympäri (Kirkkokatu)(varattu)'
-
-
-    form = pakohuoneForm(texts)
-
-    for entry in entrys:
-        if(entry.etunimi == form.etunimi0.data and entry.sukunimi0 == form.sukunimi.data):
+        if((entry.etunimi0 == form.etunimi0.data and entry.sukunimi0 == form.sukunimi.data) or entry.email0 == form.email0.data):
             flash('Olet jo ilmoittautunut')
 
             return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
@@ -764,7 +694,7 @@ def pakohuone():
                                     page="pakohuone")
 
     for entry in entrys:
-        if(entry.aika == form.aika.data and entry.huone == form.huone.data):
+        if(entry.aika == form.aika.data and (entry.huone1800 == form.huone1800.data or entry.huone1930 == form.huone1930.data)):
             flash('Valisemasi huone on jo varattu valitsemanasi aikana')
 
             return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
@@ -790,11 +720,12 @@ def pakohuone():
         flash('Ilmoittautuminen onnistui')
         sub = pakohuoneModel(
             aika = form.aika.data,
-            huone = form.huone.data,
+            huone1800 = form.huone1800.data,
+            huone1930 = form.huone1930.data,
             etunimi0 = form.etunimi0.data,
             sukunimi0 = form.sukunimi0.data,
-            phone0 = form.phone.data,
-            email0 = form.email.data,
+            phone0 = form.phone0.data,
+            email0 = form.email0.data,
             
             etunimi1 = form.etunimi1.data,
             sukunimi1 = form.sukunimi1.data,
@@ -815,15 +746,15 @@ def pakohuone():
         db.session.commit()
 
         if KAPSI:
-            msg = ["echo \"Hei", str(form.etunimi.data), str(form.sukunimi.data),
+            msg = ["echo \"Hei", str(form.etunimi0.data), str(form.sukunimi.data),
             "\n\nOlet ilmoittautunut slumberpartyyn. Syötit seuraavia tietoja: ",
-            "\n'Nimi: ", str(form.etunimi.data), str(form.sukunimi.data),
-            "\nSähköposti: ", str(form.email.data),
-            "\nPuhelinnumero: ", str(form.phone.data),
+            "\n'Nimi: ", str(form.etunimi0.data), str(form.sukunimi.data),
+            "\nSähköposti: ", str(form.email0.data),
+            "\nPuhelinnumero: ", str(form.phone0.data),
             "\nKilta: ", str(form.kilta.data),
             "\n\nÄlä vastaa tähän sähköpostiin",
             "\n\nTerveisin: ropottilari\"",
-            "|mail -aFrom:no-reply@oty.fi -s 'slumberparty ilmoittautuminen' ", str(form.email.data)]
+            "|mail -aFrom:no-reply@oty.fi -s 'slumberparty ilmoittautuminen' ", str(form.email0.data)]
 
             cmd = ' '.join(msg)
             returned_value = os.system(cmd)
@@ -851,16 +782,16 @@ def pakohuone():
                             varatut=json.dumps(varatut),
                             page="pakohuone")
 
-@app.route('/pakohuone', methods=['GET'])
+@app.route('/pakohuone_data', methods=['GET'])
 @auth.login_required(role=['admin', 'pakohuone'])
 def pakohuone_data():
     limit = 20
 
-    entries = pakohuone.query.all()
+    entries = pakohuoneModel.query.all()
 
-    count = pakohuone.query.count()
+    count = pakohuoneModel.query.count()
 
-    return render_template('pakohuone.html', title='pakohuone data',
+    return render_template('pakohuone_data.html', title='pakohuone data',
                            entries=entries,
                            count=count,
                            limit=limit)

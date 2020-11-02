@@ -6,6 +6,10 @@
 
 <script src="{{ url_for('static',filename='pakohuone.js') }}"></script>
 
+<script type="text/javascript">
+    var varatut = myFunc({{ varatut | tojson }});
+</script>
+
 <div class="container p-3">
 
     <h1>Exit Oulu</h1>

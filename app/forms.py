@@ -145,89 +145,65 @@ class slumberpartyForm(FlaskForm):
 
 
 class pakohuoneForm(FlaskForm):
-
-    #aika = None
-    #huone1800 = None
-    #huone1930 = None
-    #etunimi0 = None
-    #sukunimi0 = None
-    #phone0 = None
-    #email0 = None
-    #etunimi1 = None
-    #sukunimi1 = None
-    #etunimi2 = None
-    #sukunimi2 = None
-    #etunimi3 = None
-    #sukunimi3 = None
-    #etunimi4 = None
-    #sukunimi4 = None
-    #etunimi5 = None
-    #sukunimi5 = None
-    #consent0 = None
-    #submit = None
     
-    def __init__(self, texts, *args, **kwargs):
+    aika = RadioField('Aika *', 
+        choices=(['18:00', '18:00'], ['19:30', '19:30']), 
+        validators=[DataRequired()])
 
-        super(pakohuoneForm, self).__init__(*args, **kwargs)
+    huone1800 = RadioField('Huone (18:00) *', 
+        choices=(['Pommi (Uusikatu)', ''], 
+        ['Kuolleen miehen saari (Uusikatu)', ''], 
+        ['Temppelin kirous (Uusikatu)', ''], 
+        ['Velhon perintö (Uusikatu)', ''], 
+        ['Murhamysteeri (Kajaaninkatu)', ''], 
+        ['Vankilapako (Kajaaninkatu)', ''], 
+        ['Professorin arvoitus (Kajaaninkatu)', ''], 
+        ['The SAW (Kirkkokatu)', ''], 
+        ['Alcatraz (Kirkkokatu)', ''], 
+        ['Matka maailman ympäri (Kirkkokatu)', ''],
+        ['', '']),
+        validators=[RequiredIfValue(other_field_name='aika', value='18:00')], 
+        default=(['', '']))
 
-        self.aika = RadioField('Aika *', 
-            choices=(['18:00', '18:00'], ['19:30', '19:30']), 
-            validators=[DataRequired()])
-
-        self.huone1800 = SelectField('Huone (18:00) *', 
-            choices=(['Pommi (Uusikatu)', texts[0]], 
-            ['Kuolleen miehen saari (Uusikatu)', texts[1]], 
-            ['Temppelin kirous (Uusikatu)', texts[2]], 
-            ['Velhon perintö (Uusikatu)', texts[3]], 
-            ['Murhamysteeri (Kajaaninkatu)', texts[4]], 
-            ['Vankilapako (Kajaaninkatu)', texts[5]], 
-            ['Professorin arvoitus (Kajaaninkatu)', texts[6]], 
-            ['The SAW (Kirkkokatu)', texts[7]], 
-            ['Alcatraz (Kirkkokatu)', texts[8]], 
-            ['Matka maailman ympäri (Kirkkokatu)', texts[9]],
-            ['', '']),
-            validators=[RequiredIfValue(other_field_name='aika', value='18:00')], 
-            default=(['', '']))
-
-        self.huone1930 = SelectField('Huone (19:30) *', 
-            choices=(['Pommi (Uusikatu)', texts[10]], 
-            ['Kuolleen miehen saari (Uusikatu)', texts[11]], 
-            ['Temppelin kirous (Uusikatu)', texts[12]], 
-            ['Velhon perintö (Uusikatu)', texts[13]], 
-            ['Murhamysteeri (Kajaaninkatu)', texts[14]], 
-            ['Vankilapako (Kajaaninkatu)', texts[15]], 
-            ['Professorin arvoitus (Kajaaninkatu)', texts[16]], 
-            ['The SAW (Kirkkokatu)', texts[17]], 
-            ['Alcatraz (Kirkkokatu)', texts[18]], 
-            ['Matka maailman ympäri (Kirkkokatu)', texts[19]],
-            ['', '']),
-            validators=[RequiredIfValue(other_field_name='aika', value='19:30')], 
-            default=(['', '']))
+    huone1930 = RadioField('Huone (19:30) *', 
+        choices=(['Pommi (Uusikatu)', ''], 
+        ['Kuolleen miehen saari (Uusikatu)', ''], 
+        ['Temppelin kirous (Uusikatu)', ''], 
+        ['Velhon perintö (Uusikatu)', ''], 
+        ['Murhamysteeri (Kajaaninkatu)', ''], 
+        ['Vankilapako (Kajaaninkatu)', ''], 
+        ['Professorin arvoitus (Kajaaninkatu)', ''], 
+        ['The SAW (Kirkkokatu)', ''], 
+        ['Alcatraz (Kirkkokatu)', ''], 
+        ['Matka maailman ympäri (Kirkkokatu)', ''],
+        ['', '']),
+        validators=[RequiredIfValue(other_field_name='aika', value='19:30')], 
+        default=(['', '']))
 
 
-        self.etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-        self.sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-        self.phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-        self.email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+    etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
 
-        self.etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-        self.sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-        self.etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-        self.sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-        self.etunimi3 = StringField('Etunim *', validators=[DataRequired(), length(max=50)])
-        self.sukunimi3 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    etunimi3 = StringField('Etunim *', validators=[DataRequired(), length(max=50)])
+    sukunimi3 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-        self.etunimi4 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-        self.sukunimi4 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    etunimi4 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi4 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-        self.etunimi5 = StringField('Etunimi', validators=[length(max=50)])
-        self.sukunimi5 = StringField('Sukunimi', validators=[length(max=50)])
+    etunimi5 = StringField('Etunimi', validators=[length(max=50)])
+    sukunimi5 = StringField('Sukunimi', validators=[length(max=50)])
 
-        self.consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+    consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
-        self.submit = SubmitField('Ilmoittaudu')
+    submit = SubmitField('Ilmoittaudu')
 
 
     
