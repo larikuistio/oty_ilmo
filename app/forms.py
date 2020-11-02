@@ -206,4 +206,11 @@ class pakohuoneForm(FlaskForm):
     submit = SubmitField('Ilmoittaudu')
 
 
+class kysely_arvonta_juttuForm(FlaskForm):
+    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
     
+    consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön *', validators=[DataRequired()])
+
+    submit = SubmitField('Submit')
