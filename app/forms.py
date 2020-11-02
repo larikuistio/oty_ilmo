@@ -192,7 +192,7 @@ class pakohuoneForm(FlaskForm):
     etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-    etunimi3 = StringField('Etunim *', validators=[DataRequired(), length(max=50)])
+    etunimi3 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi3 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
     etunimi4 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
