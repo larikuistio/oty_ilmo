@@ -164,6 +164,9 @@ $(document).ready(function () {
     if(!is_set[19]) {
         $('#huone1930-9').after('Matka maailman ympäri (Kirkkokatu)(vapaa)');
     }
+
+    $('#huone1800-10').hide();
+    $('#huone1930-10').hide();
 });
 
 function myFunc(vars) {

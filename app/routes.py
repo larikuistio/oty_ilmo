@@ -671,8 +671,6 @@ def pakohuone():
     count = pakohuoneModel.query.count()
 
     varatut = []
-    varatut.append(('18:00', '', ''))
-    varatut.append(('19:30', '', ''))
     for entry in entrys:
         varatut.append((entry.aika, entry.huone1800, entry.huone1930))
 
@@ -758,7 +756,7 @@ def pakohuone():
             str(form.etunimi5.data), str(form.sukunimi5.data),
             "\n\nÄlä vastaa tähän sähköpostiin",
             "\n\nTerveisin: ropottilari\"",
-            "|mail -aFrom:no-reply@oty.fi -s 'slumberparty ilmoittautuminen' ", str(form.email0.data)]
+            "|mail -aFrom:no-reply@oty.fi -s 'pakopelipäivä ilmoittautuminen' ", str(form.email0.data)]
 
             cmd = ' '.join(msg)
             returned_value = os.system(cmd)
