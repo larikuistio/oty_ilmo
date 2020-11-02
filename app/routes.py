@@ -746,12 +746,16 @@ def pakohuone():
         db.session.commit()
 
         if KAPSI:
-            msg = ["echo \"Hei", str(form.etunimi0.data), str(form.sukunimi.data),
-            "\n\nOlet ilmoittautunut slumberpartyyn. Syötit seuraavia tietoja: ",
-            "\n'Nimi: ", str(form.etunimi0.data), str(form.sukunimi.data),
+            msg = ["echo \"Hei", str(form.etunimi0.data), str(form.sukunimi0.data),
+            "\n\nOlet ilmoittautunut OTYn Pakopelipäivä tapahtumaan. Syötit seuraavia tietoja: ",
+            "\n'Nimi: ", str(form.etunimi0.data), str(form.sukunimi0.data),
             "\nSähköposti: ", str(form.email0.data),
             "\nPuhelinnumero: ", str(form.phone0.data),
-            "\nKilta: ", str(form.kilta.data),
+            "\nMuiden joukkuelaisten nimet: ", str(form.etunimi1.data), str(form.sukunimi1),
+            str(form.etunimi2.data), str(form.sukunimi2), 
+            str(form.etunimi3.data), str(form.sukunimi3),
+            str(form.etunimi4.data), str(form.sukunimi4),
+            str(form.etunimi5.data), str(form.sukunimi5),
             "\n\nÄlä vastaa tähän sähköpostiin",
             "\n\nTerveisin: ropottilari\"",
             "|mail -aFrom:no-reply@oty.fi -s 'slumberparty ilmoittautuminen' ", str(form.email0.data)]
