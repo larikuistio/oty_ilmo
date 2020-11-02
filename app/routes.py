@@ -679,7 +679,7 @@ def pakohuone():
     form = pakohuoneForm()
 
     for entry in entrys:
-        if((entry.etunimi0 == form.etunimi0.data and entry.sukunimi0 == form.sukunimi.data) or entry.email0 == form.email0.data):
+        if((entry.etunimi0 == form.etunimi0.data and entry.sukunimi0 == form.sukunimi0.data) or entry.email0 == form.email0.data):
             flash('Olet jo ilmoittautunut')
 
             return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
@@ -751,11 +751,11 @@ def pakohuone():
             "\n'Nimi: ", str(form.etunimi0.data), str(form.sukunimi0.data),
             "\nSähköposti: ", str(form.email0.data),
             "\nPuhelinnumero: ", str(form.phone0.data),
-            "\nMuiden joukkuelaisten nimet: ", str(form.etunimi1.data), str(form.sukunimi1),
-            str(form.etunimi2.data), str(form.sukunimi2), 
-            str(form.etunimi3.data), str(form.sukunimi3),
-            str(form.etunimi4.data), str(form.sukunimi4),
-            str(form.etunimi5.data), str(form.sukunimi5),
+            "\nMuiden joukkuelaisten nimet: ", str(form.etunimi1.data), str(form.sukunimi1.data),
+            str(form.etunimi2.data), str(form.sukunimi2.data), 
+            str(form.etunimi3.data), str(form.sukunimi3.data),
+            str(form.etunimi4.data), str(form.sukunimi4.data),
+            str(form.etunimi5.data), str(form.sukunimi5.data),
             "\n\nÄlä vastaa tähän sähköpostiin",
             "\n\nTerveisin: ropottilari\"",
             "|mail -aFrom:no-reply@oty.fi -s 'slumberparty ilmoittautuminen' ", str(form.email0.data)]
