@@ -146,130 +146,88 @@ class slumberpartyForm(FlaskForm):
 
 class pakohuoneForm(FlaskForm):
 
-    text0 = 'Pommi (Uusikatu)(vapaa)'
-    text1 = 'Kuolleen miehen saari (Uusikatu)(vapaa)'
-    text2 = 'Temppelin kirous (Uusikatu)(vapaa)'
-    text3 = 'Velhon perintö (Uusikatu)(vapaa)'
-    text4 = 'Murhamysteeri (Kajaaninkatu)(vapaa)'
-    text5 = 'Vankilapako (Kajaaninkatu)(vapaa)'
-    text6 = 'Professorin arvoitus (Kajaaninkatu)(vapaa)'
-    text7 = 'The SAW (Kirkkokatu)(vapaa)'
-    text8 = 'Alcatraz (Kirkkokatu)(vapaa)'
-    text9 = 'Matka maailman ympäri (Kirkkokatu)(vapaa)'
-    text10 = 'Pommi (Uusikatu)(vapaa)'
-    text11 = 'Kuolleen miehen saari (Uusikatu)(vapaa)'
-    text12 = 'Temppelin kirous (Uusikatu)(vapaa)'
-    text13 = 'Velhon perintö (Uusikatu)(vapaa)'
-    text14 = 'Murhamysteeri (Kajaaninkatu)(vapaa)'
-    text15 = 'Vankilapako (Kajaaninkatu)(vapaa)'
-    text16 = 'Professorin arvoitus (Kajaaninkatu)(vapaa)'
-    text17 = 'The SAW (Kirkkokatu)(vapaa)'
-    text18 = 'Alcatraz (Kirkkokatu)(vapaa)'
-    text19 = 'Matka maailman ympäri (Kirkkokatu)(vapaa)'
+    #aika = None
+    #huone1800 = None
+    #huone1930 = None
+    #etunimi0 = None
+    #sukunimi0 = None
+    #phone0 = None
+    #email0 = None
+    #etunimi1 = None
+    #sukunimi1 = None
+    #etunimi2 = None
+    #sukunimi2 = None
+    #etunimi3 = None
+    #sukunimi3 = None
+    #etunimi4 = None
+    #sukunimi4 = None
+    #etunimi5 = None
+    #sukunimi5 = None
+    #consent0 = None
+    #submit = None
+    
+    def __init__(self, texts, *args, **kwargs):
+
+        super(pakohuoneForm, self).__init__(*args, **kwargs)
+
+        self.aika = RadioField('Aika *', 
+            choices=(['18:00', '18:00'], ['19:30', '19:30']), 
+            validators=[DataRequired()])
+
+        self.huone1800 = SelectField('Huone (18:00) *', 
+            choices=(['Pommi (Uusikatu)', texts[0]], 
+            ['Kuolleen miehen saari (Uusikatu)', texts[1]], 
+            ['Temppelin kirous (Uusikatu)', texts[2]], 
+            ['Velhon perintö (Uusikatu)', texts[3]], 
+            ['Murhamysteeri (Kajaaninkatu)', texts[4]], 
+            ['Vankilapako (Kajaaninkatu)', texts[5]], 
+            ['Professorin arvoitus (Kajaaninkatu)', texts[6]], 
+            ['The SAW (Kirkkokatu)', texts[7]], 
+            ['Alcatraz (Kirkkokatu)', texts[8]], 
+            ['Matka maailman ympäri (Kirkkokatu)', texts[9]],
+            ['', '']),
+            validators=[RequiredIfValue(other_field_name='aika', value='18:00')], 
+            default=(['', '']))
+
+        self.huone1930 = SelectField('Huone (19:30) *', 
+            choices=(['Pommi (Uusikatu)', texts[10]], 
+            ['Kuolleen miehen saari (Uusikatu)', texts[11]], 
+            ['Temppelin kirous (Uusikatu)', texts[12]], 
+            ['Velhon perintö (Uusikatu)', texts[13]], 
+            ['Murhamysteeri (Kajaaninkatu)', texts[14]], 
+            ['Vankilapako (Kajaaninkatu)', texts[15]], 
+            ['Professorin arvoitus (Kajaaninkatu)', texts[16]], 
+            ['The SAW (Kirkkokatu)', texts[17]], 
+            ['Alcatraz (Kirkkokatu)', texts[18]], 
+            ['Matka maailman ympäri (Kirkkokatu)', texts[19]],
+            ['', '']),
+            validators=[RequiredIfValue(other_field_name='aika', value='19:30')], 
+            default=(['', '']))
 
 
-    aika = RadioField('Aika *', 
-        choices=(['18:00', '18:00'], ['19:30', '19:30']), 
-        validators=[DataRequired()])
+        self.etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+        self.sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+        self.phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+        self.email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
 
-    huone1800 = SelectField('Huone (18:00) *', 
-        choices=(['Pommi (Uusikatu)', text0], 
-        ['Kuolleen miehen saari (Uusikatu)', text1], 
-        ['Temppelin kirous (Uusikatu)', text2], 
-        ['Velhon perintö (Uusikatu)', text3], 
-        ['Murhamysteeri (Kajaaninkatu)', text4], 
-        ['Vankilapako (Kajaaninkatu)', text5], 
-        ['Professorin arvoitus (Kajaaninkatu)', text6], 
-        ['The SAW (Kirkkokatu)', text7], 
-        ['Alcatraz (Kirkkokatu)', text8], 
-        ['Matka maailman ympäri (Kirkkokatu)', text9],
-        ['', '']),
-        validators=[RequiredIfValue(other_field_name='aika', value='18:00')], 
-        default=(['', '']))
+        self.etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+        self.sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
 
-    huone1930 = SelectField('Huone (19:30) *', 
-        choices=(['Pommi (Uusikatu)', text10], 
-        ['Kuolleen miehen saari (Uusikatu)', text11], 
-        ['Temppelin kirous (Uusikatu)', text12], 
-        ['Velhon perintö (Uusikatu)', text13], 
-        ['Murhamysteeri (Kajaaninkatu)', text14], 
-        ['Vankilapako (Kajaaninkatu)', text15], 
-        ['Professorin arvoitus (Kajaaninkatu)', text16], 
-        ['The SAW (Kirkkokatu)', text17], 
-        ['Alcatraz (Kirkkokatu)', text18], 
-        ['Matka maailman ympäri (Kirkkokatu)', text19],
-        ['', '']),
-        validators=[RequiredIfValue(other_field_name='aika', value='19:30')], 
-        default=(['', '']))
+        self.etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+        self.sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+
+        self.etunimi3 = StringField('Etunim *', validators=[DataRequired(), length(max=50)])
+        self.sukunimi3 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+
+        self.etunimi4 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+        self.sukunimi4 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+
+        self.etunimi5 = StringField('Etunimi', validators=[length(max=50)])
+        self.sukunimi5 = StringField('Sukunimi', validators=[length(max=50)])
+
+        self.consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+
+        self.submit = SubmitField('Ilmoittaudu')
 
 
-    etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-
-    etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi3 = StringField('Etunim *', validators=[DataRequired(), length(max=50)])
-    sukunimi3 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi4 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi4 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi5 = StringField('Etunimi', validators=[length(max=50)])
-    sukunimi5 = StringField('Sukunimi', validators=[length(max=50)])
-
-    consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
-
-    submit = SubmitField('Ilmoittaudu')
-
-
-    def __init__(self, entrys):
-        for entry in entrys:
-            if(entry.aika == "18:00"):
-                if(entry.huone1800 == 'Pommi (Uusikatu)'):
-                    self.text0 = 'Pommi (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Kuolleen miehen saari (Uusikatu)'):
-                    self.text1 = 'Kuolleen miehen saari (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Temppelin kirous (Uusikatu)'):
-                    self.text2 = 'Temppelin kirous (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Velhon perintö (Uusikatu)'):
-                    self.text3 = 'Velhon perintö (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Murhamysteeri (Kajaaninkatu)'):
-                    self.text4 = 'Murhamysteeri (Kajaaninkatu)(varattu)'
-                elif(entry.huone1800 == 'Vankilapako (Kajaaninkatu)'):
-                    self.text5 = 'Vankilapako (Kajaaninkatu)(varattu)'
-                elif(entry.huone1800 == 'Professorin arvoitus (Kajaaninkatu)'):
-                    self.text6 = 'Professorin arvoitus (Kajaaninkatu)(varattu)'
-                elif(entry.huone1800 == 'The SAW (Kirkkokatu)'):
-                    self.text7 = 'The SAW (Kirkkokatu)(varattu)'
-                elif(entry.huone1800 == 'Alcatraz (Kirkkokatu)'):
-                    self.text8 = 'Alcatraz (Kirkkokatu)(varattu)'
-                elif(entry.huone1800 == 'Matka maailman ympäri (Kirkkokatu)'):
-                    self.text9 = 'Matka maailman ympäri (Kirkkokatu)(varattu)'
-
-            elif(entry.aika == "19:30"):
-                if(entry.huone1800 == 'Pommi (Uusikatu)'):
-                    self.text10 = 'Pommi (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Kuolleen miehen saari (Uusikatu)'):
-                    self.text11 = 'Kuolleen miehen saari (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Temppelin kirous (Uusikatu)'):
-                    self.text12 = 'Temppelin kirous (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Velhon perintö (Uusikatu)'):
-                    self.text13 = 'Velhon perintö (Uusikatu)(varattu)'
-                elif(entry.huone1800 == 'Murhamysteeri (Kajaaninkatu)'):
-                    self.text14 = 'Murhamysteeri (Kajaaninkatu)(varattu)'
-                elif(entry.huone1800 == 'Vankilapako (Kajaaninkatu)'):
-                    self.text15 = 'Vankilapako (Kajaaninkatu)(varattu)'
-                elif(entry.huone1800 == 'Professorin arvoitus (Kajaaninkatu)'):
-                    self.text16 = 'Professorin arvoitus (Kajaaninkatu)(varattu)'
-                elif(entry.huone1800 == 'The SAW (Kirkkokatu)'):
-                    self.text17 = 'The SAW (Kirkkokatu)(varattu)'
-                elif(entry.huone1800 == 'Alcatraz (Kirkkokatu)'):
-                    self.text18 = 'Alcatraz (Kirkkokatu)(varattu)'
-                elif(entry.huone1800 == 'Matka maailman ympäri (Kirkkokatu)'):
-                    self.text19 = 'Matka maailman ympäri (Kirkkokatu)(varattu)'
+    
