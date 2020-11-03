@@ -879,9 +879,11 @@ def kysely_arvonta_juttu():
             returned_value = os.system(cmd)
 
         if KAPSI:
-            return redirect('https://ilmo.oty.fi/kysely_arvonta_juttu')
+            #return redirect('https://ilmo.oty.fi/kysely_arvonta_juttu')
+            return render_template('kysely_arvonta_juttu_redirect.html')
         else:
-            return redirect(url_for('kysely_arvonta_juttu'))
+            #return redirect(url_for('kysely_arvonta_juttu'))
+            return render_template('kysely_arvonta_juttu_redirect.html')
 
     elif submitted and count > maxlimit:
         flash('Ilmoittautuminen on jo täynnä')
