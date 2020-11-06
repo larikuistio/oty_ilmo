@@ -692,19 +692,38 @@ def pakohuone():
                                     page="pakohuone")
 
     for entry in entrys:
-        if(entry.aika == form.aika.data and (entry.huone1800 == form.huone1800.data or entry.huone1930 == form.huone1930.data)):
-            flash('Valisemasi huone on jo varattu valitsemanasi aikana')
+        if(entry.aika == form.aika.data):
+            if(entry.aika == "18:00"):
+                if(entry.huone1800 == form.huone1800.data):
+                    flash('Valisemasi huone on jo varattu valitsemanasi aikana')
 
-            return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
-                                    entrys=entrys,
-                                    count=count,
-                                    starttime=starttime,
-                                    endtime=endtime,
-                                    nowtime=nowtime,
-                                    limit=limit,
-                                    form=form,
-                                    varatut=json.dumps(varatut),
-                                    page="pakohuone")
+                    return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
+                                            entrys=entrys,
+                                            count=count,
+                                            starttime=starttime,
+                                            endtime=endtime,
+                                            nowtime=nowtime,
+                                            limit=limit,
+                                            form=form,
+                                            varatut=json.dumps(varatut),
+                                            page="pakohuone")
+            
+            elif(entry.aika == "19:30"):
+                if(entry.huone1930 == form.huone1930.data):
+                    flash('Valisemasi huone on jo varattu valitsemanasi aikana')
+
+                    return render_template('pakohuone.html', title='pakohuone ilmoittautuminen',
+                                            entrys=entrys,
+                                            count=count,
+                                            starttime=starttime,
+                                            endtime=endtime,
+                                            nowtime=nowtime,
+                                            limit=limit,
+                                            form=form,
+                                            varatut=json.dumps(varatut),
+                                            page="pakohuone")
+            
+            
 
 
     if request.method == 'POST':
