@@ -54,163 +54,22 @@ class RequiredIfValue(InputRequired):
 
 
 
-class pubivisaForm(FlaskForm):
-    teamname = StringField('Joukkueen nimi *', validators=[DataRequired(), length(max=100)])
-
-    etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    kilta0 = SelectField('Kilta *', 
-        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
-        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
-        validators=[DataRequired()])
-
-    etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone1 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email1 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    kilta1 = SelectField('Kilta *', 
-        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
-        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
-        validators=[DataRequired()])
-
-    etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone2 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email2 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    kilta2 = SelectField('Kilta *', 
-        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
-        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']), 
-        validators=[DataRequired()])
-
-    etunimi3 = StringField('Etunimi', validators=[length(max=50)])
-    sukunimi3 = StringField('Sukunimi', validators=[length(max=50)])
-    phone3 = StringField('Puhelinnumero', validators=[length(max=20)])
-    email3 = StringField('Sähköposti', validators=[length(max=100)])
-    kilta3 = SelectField('Kilta', 
-        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
-        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']))
-
-    consent0 = BooleanField('Sallin joukkueen nimen julkaisemisen osallistujalistassa')
-    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojen käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
-    consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova *', validators=[DataRequired()])
-
-    submit = SubmitField('Ilmoittaudu')
-
-
-class korttijalautapeliiltaForm(FlaskForm):
-    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    
-    kilta = SelectField('Kilta *', 
-        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
-        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']))
-
-    consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
-    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
-    consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova *', validators=[DataRequired()])
-
-    submit = SubmitField('Ilmoittaudu')
-
-
-class fuksilauluiltaForm(FlaskForm):
+class sitsiForm(FlaskForm):
     etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    
+    holi = RadioField('Alkoholillinen/Alkoholiton *', 
+        choices=(['Alkoholillinen', 'Alkoholillinen'], ['Alkoholiton', 'Alkoholiton']),
+        validators=[DataRequired())
+    mieto = SelectField('Mieto juoma *', 
+        choices=(['Olut', 'Olut'], ['Siideri', 'Siideri']), 
+        validators=[RequiredIf(holi="Alkoholillinen")])
+    vakeva = SelectField('Väkevä juoma *', 
+        choices=(['Väkevä1', 'Väkevä1'], ['Väkevä2', 'Väkevä2']), 
+        validators=[RequiredIf(holi="Alkoholillinen")])
+    viini = SelectField('Viini *', 
+        choices=(['Punaviini', 'Punaviini'], ['Valkoviini', 'Valkoviini']), 
+        validators=[RequiredIf(holi="Alkoholillinen")])
+    consent0 = BooleanField('Hyväksyn nimeni julkaisemisen tällä sivulla')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
-    submit = SubmitField('Ilmoittaudu')
-
-
-class slumberpartyForm(FlaskForm):
-    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    
-    kilta = SelectField('Kilta *', 
-        choices=(['OTiT', 'OTiT'], ['SIK', 'SIK'], ['YMP', 'YMP'], ['KONE', 'KONE'], 
-        ['PROSE', 'PROSE'], ['OPTIEM', 'OPTIEM'], ['ARK', 'ARK']))
-
-    consent0 = BooleanField('Sallin nimeni julkaisemisen osallistujalistassa')
-    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
-    consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova *', validators=[DataRequired()])
-
-    submit = SubmitField('Ilmoittaudu')
-
-
-
-class pakohuoneForm(FlaskForm):
-    
-    aika = RadioField('Aika *', 
-        choices=(['18:00', '18:00'], ['19:30', '19:30']), 
-        validators=[DataRequired()])
-
-    huone1800 = RadioField('Huone (18:00) *', 
-        choices=(['Pommi (Uusikatu)', ''], 
-        ['Kuolleen miehen saari (Uusikatu)', ''], 
-        ['Temppelin kirous (Uusikatu)', ''], 
-        ['Velhon perintö (Uusikatu)', ''], 
-        ['Murhamysteeri (Kajaaninkatu)', ''], 
-        ['Vankilapako (Kajaaninkatu)', ''], 
-        ['Professorin arvoitus (Kajaaninkatu)', ''], 
-        ['The SAW (Kirkkokatu)', ''], 
-        ['Alcatraz (Kirkkokatu)', ''], 
-        ['Matka maailman ympäri (Kirkkokatu)', ''],
-        ['', '']),
-        validators=[RequiredIfValue(other_field_name='aika', value='18:00')], 
-        default=(['', '']))
-
-    huone1930 = RadioField('Huone (19:30) *', 
-        choices=(['Pommi (Uusikatu)', ''], 
-        ['Kuolleen miehen saari (Uusikatu)', ''], 
-        ['Temppelin kirous (Uusikatu)', ''], 
-        ['Velhon perintö (Uusikatu)', ''], 
-        ['Murhamysteeri (Kajaaninkatu)', ''], 
-        ['Vankilapako (Kajaaninkatu)', ''], 
-        ['Professorin arvoitus (Kajaaninkatu)', ''], 
-        ['The SAW (Kirkkokatu)', ''], 
-        ['Alcatraz (Kirkkokatu)', ''], 
-        ['Matka maailman ympäri (Kirkkokatu)', ''],
-        ['', '']),
-        validators=[RequiredIfValue(other_field_name='aika', value='19:30')], 
-        default=(['', '']))
-
-
-    etunimi0 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi0 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    phone0 = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
-    email0 = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-
-    etunimi1 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi1 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi2 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi2 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi3 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi3 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi4 = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi4 = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-
-    etunimi5 = StringField('Etunimi', validators=[length(max=50)])
-    sukunimi5 = StringField('Sukunimi', validators=[length(max=50)])
-
-    consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
-
-    submit = SubmitField('Ilmoittaudu')
-
-
-class kysely_arvonta_juttuForm(FlaskForm):
-    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
-    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
-    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    
-    consent0 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön *', validators=[DataRequired()])
-
-    submit = SubmitField('Submit')
