@@ -9,6 +9,8 @@ class sitsiModel(db.Model):
     mieto = db.Column(db.String(32))
     vakeva = db.Column(db.String(32))
     viini = db.Column(db.String(32))
+    pitsa = db.Column(db.String(32))
+    allergiat = db.Column(db.String(256))
     consent0 = db.Column(db.Boolean())
     consent1 = db.Column(db.Boolean())
 

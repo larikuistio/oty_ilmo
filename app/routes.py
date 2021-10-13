@@ -78,10 +78,10 @@ def index():
 
 @app.route('/pitsakaljasitsit', methods=['GET', 'POST'])
 @auth.login_required(role=['admin', 'pitsakaljasitsit'])
-def pubivisa():
+def pitsakaljasitsit():
     form = sitsiForm()
 
-    starttime = datetime(2021, 10, 20, 13, 37, 00)
+    starttime = datetime(2021, 10, 12, 13, 37, 00)
     endtime = datetime(2021, 10, 27, 23, 59, 59)
     nowtime = datetime.now()
 
@@ -126,6 +126,7 @@ def pubivisa():
             mieto = form.mieto.data,
             vakeva = form.vakeva.data,
             viini = form.viini.data,
+            pitsa = form.pitsa.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
             datetime = nowtime
@@ -156,7 +157,7 @@ def pubivisa():
 
 @app.route('/pitsakaljasitsit_data', methods=['GET'])
 @auth.login_required(role=['admin', 'pitsakaljasitsit'])
-def pubivisa_data():
+def pitsakaljasitsit_data():
     limit = 60
 
     entries = sitsiModel.query.all()
@@ -170,7 +171,7 @@ def pubivisa_data():
 
 @app.route('/pitsakaljasitsit_data/pitsakaljasitsit_model_data.csv')
 @auth.login_required(role=['admin', 'pitsakaljasitsit'])
-def pubivisa_csv():
+def pitsakaljasitsit_csv():
 
     os.system('mkdir csv')
 

@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $("#holi-1").prop("checked", true);
+});
+
+
+$(document).ready(function () {
     $('input[type=radio][name=holi]').change(function () {
         if (document.getElementById('holi-0').checked) {
             $('#mieto').show();

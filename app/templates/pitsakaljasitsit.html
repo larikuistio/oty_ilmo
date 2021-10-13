@@ -1,10 +1,12 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% extends "header.html" %}
+{% extends "header_pitsakalja.html" %}
 
 {% block content %}
 
-<div class="container p-3">
+<script src="{{ url_for('static',filename='pitsakaljasitsit.js') }}"></script>
+
+<div class="container p-3" style="max-width: 800px; background-color: white;">
 
     <h1>Pitsa Kalja Sitsit</h1>
 
@@ -62,6 +64,16 @@
                 <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
                 {% endfor %}
             </div>
+
+            {{ wtf.form_field(form.pitsa) }}
+            {% for e in form.pitsa.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
+
+            {{ wtf.form_field(form.allergiat) }}
+            {% for e in form.allergiat.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
+            {% endfor %}
 
             {{ wtf.form_field(form.consent0) }}
             {% for e in form.consent0.errors %}
