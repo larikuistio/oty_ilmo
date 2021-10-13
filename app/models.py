@@ -9,7 +9,7 @@ class sitsiModel(db.Model):
     mieto = db.Column(db.String(32))
     vakeva = db.Column(db.String(32))
     viini = db.Column(db.String(32))
-    consent0 = db.Column(db.BooleanField())
-    consent1 = db.Column(db.BooleanField())
+    consent0 = db.Column(db.Boolean())
+    consent1 = db.Column(db.Boolean())
 
 

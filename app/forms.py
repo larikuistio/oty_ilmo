@@ -60,16 +60,16 @@ class sitsiForm(FlaskForm):
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
     holi = RadioField('Alkoholillinen/Alkoholiton *', 
         choices=(['Alkoholillinen', 'Alkoholillinen'], ['Alkoholiton', 'Alkoholiton']),
-        validators=[DataRequired())
+        validators=[DataRequired()])
     mieto = SelectField('Mieto juoma *', 
         choices=(['Olut', 'Olut'], ['Siideri', 'Siideri']), 
-        validators=[RequiredIf(holi="Alkoholillinen")])
+        validators=[RequiredIf(other_field_name=holi, value="Alkoholillinen")])
     vakeva = SelectField('Väkevä juoma *', 
         choices=(['Väkevä1', 'Väkevä1'], ['Väkevä2', 'Väkevä2']), 
-        validators=[RequiredIf(holi="Alkoholillinen")])
+        validators=[RequiredIf(other_field_name=holi, value="Alkoholillinen")])
     viini = SelectField('Viini *', 
         choices=(['Punaviini', 'Punaviini'], ['Valkoviini', 'Valkoviini']), 
-        validators=[RequiredIf(holi="Alkoholillinen")])
+        validators=[RequiredIf(other_field_name=holi, value="Alkoholillinen")])
     consent0 = BooleanField('Hyväksyn nimeni julkaisemisen tällä sivulla')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
