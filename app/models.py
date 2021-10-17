@@ -13,5 +13,6 @@ class sitsiModel(db.Model):
     allergiat = db.Column(db.String(256))
     consent0 = db.Column(db.Boolean())
     consent1 = db.Column(db.Boolean())
+    datetime = db.Column(db.DateTime())
 
 
