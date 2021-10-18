@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    $("#holi-1").prop("checked", true);
+    $("#alkoholi-1").prop("checked", true);
 });
 
 
 $(document).ready(function () {
-    $('input[type=radio][name=holi]').change(function () {
-        if (document.getElementById('holi-0').checked) {
+    $('input[type=radio][name=alkoholi]').change(function () {
+        if (document.getElementById('alkoholi-0').checked) {
             $('#mieto').show();
             $('#vakeva').show();
             $('#viini').show();

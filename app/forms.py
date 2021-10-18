@@ -58,18 +58,18 @@ class sitsiForm(FlaskForm):
     etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
     sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
-    holi = SelectField('Alkoholillinen/Alkoholiton *', 
+    alkoholi = RadioField('Alkoholillinen/Alkoholiton *', 
         choices=(['Alkoholillinen', 'Alkoholillinen'], ['Alkoholiton', 'Alkoholiton']),
-        validators=[DataRequired()])
+       validators=[DataRequired()])
     mieto = SelectField('Mieto juoma *', 
         choices=(['Olut', 'Olut'], ['Siideri', 'Siideri']), 
-        validators=[RequiredIf(other_field_name=holi, value="Alkoholillinen")])
+        validators=[RequiredIf(other_field_name='alkoholi', value="Alkoholillinen")])
     vakeva = SelectField('Väkevä juoma *', 
         choices=(['Väkevä1', 'Väkevä1'], ['Väkevä2', 'Väkevä2']), 
-        validators=[RequiredIf(other_field_name=holi, value="Alkoholillinen")])
+        validators=[RequiredIf(other_field_name='alkoholi', value="Alkoholillinen")])
     viini = SelectField('Viini *', 
         choices=(['Punaviini', 'Punaviini'], ['Valkoviini', 'Valkoviini']), 
-        validators=[RequiredIf(other_field_name=holi, value="Alkoholillinen")])
+        validators=[RequiredIf(other_field_name='alkoholi', value="Alkoholillinen")])
     pitsa = SelectField('Pitsa *', 
         choices=(['Liha', 'Liha'], ['Kana', 'Kana'], ['Vege', 'Vege']),
         validators=[DataRequired()])

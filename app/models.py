@@ -5,7 +5,7 @@ class sitsiModel(db.Model):
     etunimi = db.Column(db.String(64))
     sukunimi = db.Column(db.String(64))
     email = db.Column(db.String(128))
-    holi = db.Column(db.String(32))
+    alkoholi = db.Column(db.String(32))
     mieto = db.Column(db.String(32))
     vakeva = db.Column(db.String(32))
     viini = db.Column(db.String(32))

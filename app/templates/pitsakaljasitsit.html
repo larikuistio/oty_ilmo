@@ -39,8 +39,8 @@
             <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
             {% endfor %}
 
-            {{ wtf.form_field(form.holi) }}
-            {% for e in form.holi.errors %}
+            {{ wtf.form_field(form.alkoholi) }}
+            {% for e in form.alkoholi.errors %}
             <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
             {% endfor %}
 
@@ -100,7 +100,7 @@
         {% endif %}
 
 
-        <h3>Osallistujat: {{ count }}/{{ limit }}</h3>
+        <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
         {% for entry in entrys%}
         {% if entry.consent0 %}
         <p>{{ entry.etunimi }} {{ entry.sukunimi }}

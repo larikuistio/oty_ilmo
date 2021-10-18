@@ -10,6 +10,7 @@ from app.models import sitsiModel
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
 from app import sqlite_to_csv
+from app import gmail_send
 from werkzeug.datastructures import MultiDict
 from urllib.parse import urlparse, urlunparse
 import subprocess
@@ -89,7 +90,7 @@ def pitsakaljasitsit():
     maxlimit = 80
     
     entrys = sitsiModel.query.all()
-    count = sitsiModel.query.count()
+    totalcount = sitsiModel.query.count()
     for entry in entrys:
         if(entry.etunimi == form.etunimi.data and entry.sukunimi == form.sukunimi.data):
             flash('Olet jo ilmoittautunut')
@@ -112,8 +113,8 @@ def pitsakaljasitsit():
         validate = False
         submitted = False
 
-    if validate and submitted and count <= maxlimit:
-        if count >= limit:
+    if validate and submitted and totalcount <= maxlimit:
+        if totalcount >= limit:
             flash('Ilmoittautuminen onnistui, olet varasijalla')
         else:
             flash('Ilmoittautuminen onnistui')
@@ -122,7 +123,7 @@ def pitsakaljasitsit():
             etunimi = form.etunimi.data,
             sukunimi = form.sukunimi.data,
             email = form.email.data,
-            holi = form.holi.data,
+            alkoholi = form.alkoholi.data,
             mieto = form.mieto.data,
             vakeva = form.vakeva.data,
             viini = form.viini.data,
@@ -134,10 +135,12 @@ def pitsakaljasitsit():
         db.session.add(sub)
         db.session.commit()
 
+        #gmail_send.send()
+
         return redirect(url_for('pitsakaljasitsit'))
 
     elif submitted and totalcount > maxlimit:
-        count -= count
+        totalcount -= totalcount
         flash('Ilmoittautuminen on jo täynnä')
 
     elif (not validate) and submitted:
@@ -146,7 +149,7 @@ def pitsakaljasitsit():
 
     return render_template('pitsakaljasitsit.html', title='pitsakaljasitsit ilmoittautuminen',
                             entrys=entrys,
-                            count=count,
+                            totalcount=totalcount,
                             starttime=starttime,
                             endtime=endtime,
                             nowtime=nowtime,
@@ -169,19 +172,19 @@ def pitsakaljasitsit_data():
                            count=count,
                            limit=limit)
 
-@app.route('/pitsakaljasitsit_data/pitsakaljasitsit_model_data.csv')
+@app.route('/pitsakaljasitsit_data/sitsi_model_data.csv')
 @auth.login_required(role=['admin', 'pitsakaljasitsit'])
 def pitsakaljasitsit_csv():
 
     os.system('mkdir csv')
 
-    sqlite_to_csv.exportToCSV('pitsakaljasitsit_model')
+    sqlite_to_csv.exportToCSV('sitsi_model')
 
     dir = os.path.join(os.getcwd(), 'csv/')
     
     try:
         print(dir)
-        return send_from_directory(directory=dir, filename='pitsakaljasitsit_data.csv', as_attachment=True)
+        return send_from_directory(directory=dir, path='.', filename='sitsi_model_data.csv', as_attachment=True)
     except FileNotFoundError as e:
         print(e)
         abort(404)
