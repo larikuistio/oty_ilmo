@@ -64,12 +64,6 @@ class sitsiForm(FlaskForm):
     mieto = SelectField('Mieto juoma *', 
         choices=(['Olut', 'Olut'], ['Siideri', 'Siideri']), 
         validators=[RequiredIf(other_field_name='alkoholi', value="Alkoholillinen")])
-    vakeva = SelectField('Väkevä juoma *', 
-        choices=(['Väkevä1', 'Väkevä1'], ['Väkevä2', 'Väkevä2']), 
-        validators=[RequiredIf(other_field_name='alkoholi', value="Alkoholillinen")])
-    viini = SelectField('Viini *', 
-        choices=(['Punaviini', 'Punaviini'], ['Valkoviini', 'Valkoviini']), 
-        validators=[RequiredIf(other_field_name='alkoholi', value="Alkoholillinen")])
     pitsa = SelectField('Pitsa *', 
         choices=(['Liha', 'Liha'], ['Kana', 'Kana'], ['Vege', 'Vege']),
         validators=[DataRequired()])

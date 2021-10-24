@@ -7,8 +7,6 @@ class sitsiModel(db.Model):
     email = db.Column(db.String(128))
     alkoholi = db.Column(db.String(32))
     mieto = db.Column(db.String(32))
-    vakeva = db.Column(db.String(32))
-    viini = db.Column(db.String(32))
     pitsa = db.Column(db.String(32))
     allergiat = db.Column(db.String(256))
     consent0 = db.Column(db.Boolean())

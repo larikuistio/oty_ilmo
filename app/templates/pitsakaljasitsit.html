@@ -13,12 +13,15 @@
     <p>Pitsa Kalja Sitsit 18.11. @Teekkaritalo</p>
     <p>Lisätietoja tulossa</p>
 
+    <p>60 ensimmäisen jälkeen ilmoittautuneet ovat varasijoilla.</p>
+    <p>Jos on kysyttävää niin voit olla yhteydessä sähköpostitse pepeministeri@otit.fi</p>
+
     {% block ilmo %}
     <div class="container p-3">
         <div>
             <h4>{{ title }}</h4>
             <h6>* merkityt kohdat pakollisia</h6>
-            <h6><a href="{{ url_for('static',filename='tietosuojaseloste_pitsakaljasitsit.pdf') }}">Tietosuojaseloste</a></h6>
+            <h6><a href="{{ url_for('static',filename='pitsakaljasitsit_tietosuojaseloste.pdf') }}">Tietosuojaseloste</a></h6>
 
         </div>
         {% if starttime < nowtime < endtime %}
@@ -47,20 +50,6 @@
             <div id="mieto" style="display: none;">
                 {{ wtf.form_field(form.mieto) }}
                 {% for e in form.mieto.errors %}
-                <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-                {% endfor %}
-            </div>
-
-            <div id="vakeva" style="display: none;">
-                {{ wtf.form_field(form.vakeva) }}
-                {% for e in form.vakeva.errors %}
-                <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-                {% endfor %}
-            </div>
-
-            <div id="viini" style="display: none;">
-                {{ wtf.form_field(form.viini) }}
-                {% for e in form.viini.errors %}
                 <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
                 {% endfor %}
             </div>

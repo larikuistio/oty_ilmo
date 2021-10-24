@@ -10,7 +10,6 @@ from app.models import sitsiModel
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
 from app import sqlite_to_csv
-from app import gmail_send
 from werkzeug.datastructures import MultiDict
 from urllib.parse import urlparse, urlunparse
 import subprocess
@@ -87,7 +86,7 @@ def pitsakaljasitsit():
     nowtime = datetime.now()
 
     limit = 60
-    maxlimit = 80
+    maxlimit = 90
     
     entrys = sitsiModel.query.all()
     totalcount = sitsiModel.query.count()
@@ -125,17 +124,14 @@ def pitsakaljasitsit():
             email = form.email.data,
             alkoholi = form.alkoholi.data,
             mieto = form.mieto.data,
-            vakeva = form.vakeva.data,
-            viini = form.viini.data,
             pitsa = form.pitsa.data,
+            allergiat = form.allergiat.data,
             consent0 = form.consent0.data,
             consent1 = form.consent1.data,
             datetime = nowtime
         )
         db.session.add(sub)
         db.session.commit()
-
-        #gmail_send.send()
 
         return redirect(url_for('pitsakaljasitsit'))
 
