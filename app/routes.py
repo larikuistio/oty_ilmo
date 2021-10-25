@@ -145,6 +145,9 @@ def pitsakaljasitsit():
             "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Pitsakaljasitsit ilmoittautuminen'", str(form.email.data)
         ]
 
+        cmd = ''.join(msg)
+        returnvalue = os.system(cmd)
+
         return redirect(url_for('pitsakaljasitsit'))
 
     elif submitted and totalcount > maxlimit:
