@@ -77,7 +77,6 @@ def index():
 
 
 @app.route('/pitsakaljasitsit', methods=['GET', 'POST'])
-@auth.login_required(role=['admin', 'pitsakaljasitsit'])
 def pitsakaljasitsit():
     form = sitsiForm()
 
@@ -141,7 +140,7 @@ def pitsakaljasitsit():
             "FI03 4744 3020 0116 87. Kirjoita viestikenttään nimesi, ", 
             "Pitsakalja-sitsit sekä alkoholiton tai alkoholillinen valintasi mukaan.",
             "\n\nJos tulee kysyttävää, niin voit olla sähköpostitse yhteydessä pepeministeri@otit.fi",
-            "\nnÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+            "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
             "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Pitsakaljasitsit ilmoittautuminen'", str(form.email.data)
         ]
 
