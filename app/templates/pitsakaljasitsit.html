@@ -8,10 +8,13 @@
 
 <div class="container p-3" style="max-width: 800px; background-color: white;">
 
-    <h1>Pitsa Kalja Sitsit</h1>
+    <h1>Pitsakalja Sitsit</h1>
 
-    <p>Pitsa Kalja Sitsit 18.11. @Teekkaritalo</p>
-    <p>Lisätietoja tulossa</p>
+    <p>Pitsakalja Sitsit 18.11. @Teekkaritalo</p>
+    <p><strong>Hinta alkoholillisen juoman kanssa on 20€ ja alkoholittoman juoman kanssa 17€. Maksu tapahtuu
+            tilisiirrolla Oulun
+            Tietoteekkarit ry:n tilille FI03 4744 3020 0116 87. Kirjoita viestikenttään nimesi, Pitsakalja-sitsit sekä
+            alkoholiton tai alkoholillinen valintasi mukaan.</strong></p>
 
     <p>60 ensimmäisen jälkeen ilmoittautuneet ovat varasijoilla.</p>
     <p>Jos on kysyttävää niin voit olla yhteydessä sähköpostitse pepeministeri@otit.fi</p>
@@ -20,85 +23,106 @@
     <div class="container p-3">
         <div>
             <h4>{{ title }}</h4>
-            <h6>* merkityt kohdat pakollisia</h6>
-            <h6><a href="{{ url_for('static',filename='pitsakaljasitsit_tietosuojaseloste.pdf') }}">Tietosuojaseloste</a></h6>
+            <h5>* merkityt kohdat pakollisia</h5>
+            <h5><a
+                    href="{{ url_for('static',filename='pitsakaljasitsit_tietosuojaseloste.pdf') }}">Tietosuojaseloste</a>
+            </h5>
 
         </div>
-        {% if starttime < nowtime < endtime %}
-        <form class="form form-horizontal" method="post" role="form">
+        {% if starttime < nowtime < endtime %} <form class="form form-horizontal" method="post" role="form">
             {{ form.hidden_tag() }}
 
             {{ wtf.form_field(form.etunimi) }}
             {% for e in form.etunimi.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
-            {{ wtf.form_field(form.sukunimi) }}
-            {% for e in form.sukunimi.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+                {{ wtf.form_field(form.sukunimi) }}
+                {% for e in form.sukunimi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
-            {{ wtf.form_field(form.email) }}
-            {% for e in form.email.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+                {{ wtf.form_field(form.email) }}
+                {% for e in form.email.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
-            {{ wtf.form_field(form.alkoholi) }}
-            {% for e in form.alkoholi.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+                {{ wtf.form_field(form.alkoholi) }}
+                {% for e in form.alkoholi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
             <div id="mieto" style="display: none;">
                 {{ wtf.form_field(form.mieto) }}
                 {% for e in form.mieto.errors %}
-                <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-                {% endfor %}
+                <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+                <p>
+                    {% endfor %}
             </div>
 
             {{ wtf.form_field(form.pitsa) }}
             {% for e in form.pitsa.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
-            {{ wtf.form_field(form.allergiat) }}
-            {% for e in form.allergiat.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+                {{ wtf.form_field(form.allergiat) }}
+                {% for e in form.allergiat.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
-            {{ wtf.form_field(form.consent0) }}
-            {% for e in form.consent0.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+                {{ wtf.form_field(form.consent0) }}
+                {% for e in form.consent0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
-            {{ wtf.form_field(form.consent1) }}
-            {% for e in form.consent1.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+                {{ wtf.form_field(form.consent1) }}
+                {% for e in form.consent1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
-            <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
-            {% for e in form.submit.errors %}
-            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}<p>
-            {% endfor %}
+                <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
+                {% for e in form.submit.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
 
-            <p>Ilmoittautuminen päättyy {{ endtime }}</p>
+            <h5>Ilmoittautuminen päättyy {{ endtime }}</h5>
 
-        </form>
-        {% elif nowtime < starttime %}
-        <p>Ilmoittautuminen alkaa {{ starttime }}</p>
-        {% else %}
-        <p>Ilmoittautuminen on päättynyt</p>
-        {% endif %}
-
-
-        <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
-        {% for entry in entrys%}
-        {% if entry.consent0 %}
-        <p>{{ entry.etunimi }} {{ entry.sukunimi }}
-            {% if loop.index > limit %}
-            (Varasijalla)
+            <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
+            {% for entry in entrys%}
+            {% if entry.consent0 %}
+            <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+                {% if loop.index > limit %}
+                (Varasijalla)
+                {% endif %}
+            </p>
             {% endif %}
-        </p>
-        {% endif %}
-        {% endfor %}
+            {% endfor %}
+
+            </form>
+            {% elif nowtime < starttime %} <h5>Ilmoittautuminen alkaa {{ starttime }}</h5>
+                {% else %}
+                <h5>Ilmoittautuminen on päättynyt</h5>
+                <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
+                {% for entry in entrys%}
+                {% if entry.consent0 %}
+                <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+                    {% if loop.index > limit %}
+                    (Varasijalla)
+                    {% endif %}
+                </p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+
 
 
     </div>

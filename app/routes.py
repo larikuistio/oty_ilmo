@@ -81,8 +81,8 @@ def index():
 def pitsakaljasitsit():
     form = sitsiForm()
 
-    starttime = datetime(2021, 10, 12, 13, 37, 00)
-    endtime = datetime(2021, 10, 27, 23, 59, 59)
+    starttime = datetime(2021, 10, 26, 12, 00, 00)
+    endtime = datetime(2021, 11, 2, 23, 59, 59)
     nowtime = datetime.now()
 
     limit = 60
@@ -132,6 +132,18 @@ def pitsakaljasitsit():
         )
         db.session.add(sub)
         db.session.commit()
+
+        msg = [
+            "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
+            "\n\nOlet ilmoittautunut OTiTin Pitsakalja sitseille. Tässä vielä maksuohjeet: ", 
+            "\n\n", "Hinta alkoholillisen juoman kanssa on 20€ ja alkoholittoman juoman ", 
+            "kanssa 17€. Maksu tapahtuu tilisiirrolla Oulun Tietoteekkarit ry:n tilille ", 
+            "FI03 4744 3020 0116 87. Kirjoita viestikenttään nimesi, ", 
+            "Pitsakalja-sitsit sekä alkoholiton tai alkoholillinen valintasi mukaan.",
+            "\n\nJos tulee kysyttävää, niin voit olla sähköpostitse yhteydessä pepeministeri@otit.fi",
+            "\nnÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+            "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Pitsakaljasitsit ilmoittautuminen'", str(form.email.data)
+        ]
 
         return redirect(url_for('pitsakaljasitsit'))
 
