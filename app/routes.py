@@ -132,17 +132,27 @@ def pitsakaljasitsit():
         db.session.add(sub)
         db.session.commit()
 
-        msg = [
-            "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
-            "\n\nOlet ilmoittautunut OTiTin Pitsakalja sitseille. Tässä vielä maksuohjeet: ", 
-            "\n\n", "Hinta alkoholillisen juoman kanssa on 20€ ja alkoholittoman juoman ", 
-            "kanssa 17€. Maksu tapahtuu tilisiirrolla Oulun Tietoteekkarit ry:n tilille ", 
-            "FI03 4744 3020 0116 87. Kirjoita viestikenttään nimesi, ", 
-            "Pitsakalja-sitsit sekä alkoholiton tai alkoholillinen valintasi mukaan.",
-            "\n\nJos tulee kysyttävää, niin voit olla sähköpostitse yhteydessä pepeministeri@otit.fi",
-            "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
-            "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Pitsakaljasitsit ilmoittautuminen'", str(form.email.data)
-        ]
+        if totalcount >= limit:
+            msg = [
+                "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
+                "\n\nOlet ilmoittautunut OTiTin Pitsakalja sitseille. Olet varasijalla. ", 
+                "Jos sitseille jää syystä tai toisesta vapaita paikkoja, niin sinuun voidaan olla yhteydessä. ", 
+                "\n\nJos tulee kysyttävää, niin voit olla sähköpostitse yhteydessä pepeministeri@otit.fi",
+                "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+                "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Pitsakaljasitsit ilmoittautuminen'", str(form.email.data)
+            ]
+        else:
+            msg = [
+                "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
+                "\n\nOlet ilmoittautunut OTiTin Pitsakalja sitseille. Tässä vielä maksuohjeet: ", 
+                "\n\n", "Hinta alkoholillisen juoman kanssa on 20€ ja alkoholittoman juoman ", 
+                "kanssa 17€. Maksu tapahtuu tilisiirrolla Oulun Tietoteekkarit ry:n tilille ", 
+                "FI03 4744 3020 0116 87. Kirjoita viestikenttään nimesi, ", 
+                "Pitsakalja-sitsit sekä alkoholiton tai alkoholillinen valintasi mukaan.",
+                "\n\nJos tulee kysyttävää, niin voit olla sähköpostitse yhteydessä pepeministeri@otit.fi",
+                "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+                "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Pitsakaljasitsit ilmoittautuminen'", str(form.email.data)
+            ]
 
         cmd = ' '.join(msg)
         returnvalue = os.system(cmd)
