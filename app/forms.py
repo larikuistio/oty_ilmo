@@ -67,7 +67,7 @@ class sitsiForm(FlaskForm):
     pitsa = SelectField('Pitsa *', 
         choices=(['Liha', 'Liha'], ['Kana', 'Kana'], ['Vege', 'Vege']),
         validators=[DataRequired()])
-    allergiat = StringField('Eirtyisruokavaliot/allergiat', validators=[length(max=200)])
+    allergiat = StringField('Erityisruokavaliot/allergiat', validators=[length(max=200)])
     consent0 = BooleanField('Hyväksyn nimeni julkaisemisen tällä sivulla')
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
