@@ -5,8 +5,8 @@ from app import app, db
 from datetime import datetime, date, time, timedelta
 import requests
 from sqlalchemy import and_
-from app.forms import sitsiForm
-from app.models import sitsiModel
+from app.forms import sitsiForm, fucuForm
+from app.models import sitsiModel, fucuModel
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
 from app import sqlite_to_csv
