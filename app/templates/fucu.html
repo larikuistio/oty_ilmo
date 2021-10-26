@@ -1,0 +1,116 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% extends "header_fucu.html" %}
+
+{% block content %}
+
+<!--<script src="{{ url_for('static',filename='fucu.js') }}"></script>-->
+
+<div class="container p-3" style="max-width: 800px; background-color: white; opacity: 0.9;">
+
+    <h2>Fuksicursio ilmoittautuminen</h2>
+
+    {% block ilmo %}
+    <div class="container p-3">
+        <div>
+            <h4>{{ title }}</h4>
+            <h5>* merkityt kohdat pakollisia</h5>
+            <h5><a
+                    href="{{ url_for('static',filename='fucu_tietosuojaseloste.pdf') }}">Tietosuojaseloste</a>
+            </h5>
+
+        </div>
+        {% if starttime < nowtime < endtime %} <form class="form form-horizontal" method="post" role="form">
+            {{ form.hidden_tag() }}
+
+            {{ wtf.form_field(form.etunimi) }}
+            {% for e in form.etunimi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+                {{ wtf.form_field(form.sukunimi) }}
+                {% for e in form.sukunimi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.email) }}
+                {% for e in form.email.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.puh) }}
+                {% for e in form.puh.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.lahtopaikka) }}
+                {% for e in form.lahtopaikka.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.kiintio) }}
+                {% for e in form.kiintio.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.consent0) }}
+                {% for e in form.consent0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.consent1) }}
+                {% for e in form.consent1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
+                {% for e in form.submit.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+            <h5>Ilmoittautuminen päättyy {{ endtime }}</h5>
+
+            <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
+            {% for entry in entrys%}
+            {% if entry.consent0 %}
+            <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+                {% if loop.index > limit %}
+                (Varasijalla)
+                {% endif %}
+            </p>
+            {% endif %}
+            {% endfor %}
+
+            </form>
+            {% elif nowtime < starttime %} <h5>Ilmoittautuminen alkaa {{ starttime }}</h5>
+                {% else %}
+                <h5>Ilmoittautuminen on päättynyt</h5>
+                <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
+                {% for entry in entrys%}
+                {% if entry.consent0 %}
+                <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+                    {% if loop.index > limit %}
+                    (Varasijalla)
+                    {% endif %}
+                </p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+
+
+
+    </div>
+    {% endblock %}
+
+</div>
+
+{% endblock %}

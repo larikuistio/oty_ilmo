@@ -72,3 +72,21 @@ class sitsiForm(FlaskForm):
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
     submit = SubmitField('Ilmoittaudu')
+
+
+class fucuForm(FlaskForm):
+    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+    puh = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    lahtopaikka = SelectField('Lähtöpaikka *', 
+        choices=(['Yliopisto', 'Yliopisto'], ['Merikoskenkatu', 'Merikoskenkatu'], 
+        ['Linja-autoasema', 'Linja-autoasema']), 
+        validators=[DataRequired()])
+    kiintio = SelectField('Kiintiö *', 
+        choices=(['Fuksi', 'Fuksi'], ['Pro', 'Pro'], ['Hallitus', 'Hallitus'], ['Muu', 'Muu']), 
+        validators=[DataRequired()])
+    consent0 = BooleanField('Hyväksyn nimeni julkaisemisen tällä sivulla')
+    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+
+    submit = SubmitField('Ilmoittaudu')

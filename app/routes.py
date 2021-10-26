@@ -212,3 +212,132 @@ def pitsakaljasitsit_csv():
 
 
 
+@app.route('/fucu', methods=['GET', 'POST'])
+@auth.login_required(role=['admin', 'fucu'])
+def fucu():
+    form = fucuForm()
+
+    starttime = datetime(2021, 10, 26, 12, 00, 00)
+    endtime = datetime(2021, 11, 5, 23, 59, 59)
+    nowtime = datetime.now()
+
+    limit = 100
+    maxlimit = 120
+    
+    entrys = fucuModel.query.all()
+    totalcount = fucuModel.query.count()
+    for entry in entrys:
+        if(entry.etunimi == form.etunimi.data and entry.sukunimi == form.sukunimi.data):
+            flash('Olet jo ilmoittautunut')
+
+            return render_template('fucu.html', title='fucu ilmoittautuminen',
+                                    entrys=entrys,
+                                    totalcount=totalcount,
+                                    starttime=starttime,
+                                    endtime=endtime,
+                                    nowtime=nowtime,
+                                    limit=limit,
+                                    form=form,
+                                    page="fucu")
+
+
+    if request.method == 'POST':
+        validate = form.validate_on_submit()
+        submitted = form.is_submitted()
+    else:
+        validate = False
+        submitted = False
+
+    if validate and submitted and totalcount <= maxlimit:
+        if totalcount >= limit:
+            flash('Ilmoittautuminen onnistui, olet varasijalla')
+        else:
+            flash('Ilmoittautuminen onnistui')
+
+        sub = fucuModel(
+            etunimi = form.etunimi.data,
+            sukunimi = form.sukunimi.data,
+            email = form.email.data,
+            puh = form.puh.data,
+            lahtopaikka = form.lahtopaikka.data,
+            kiintio = form.kiintio.data,
+            consent0 = form.consent0.data,
+            consent1 = form.consent1.data,
+            datetime = nowtime
+        )
+        db.session.add(sub)
+        db.session.commit()
+
+        if totalcount >= limit:
+            msg = [
+                "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
+                "\n\nOlet ilmoittautunut OTiTin Fuksicursiolle. Olet varasijalla. ", 
+                "Jos fuculle jää peruutuksien myötä vapaita paikkoja, niin sinuun voidaan olla yhteydessä. ",
+                "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+                "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Fuksicursio ilmoittautuminen'", str(form.email.data)
+            ]
+        else:
+            msg = [
+                "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
+                "\n\nOlet ilmoittautunut OTiTin Fuksicursiolle. Tässä vielä syöttämäsi tiedot: ", 
+                "\n\nNimi: ", str(form.etunimi.data), str(form.sukunimi.data), 
+                "\nSähköposti: ", str(form.email.data), "\nPuhelinnumero: ", str(form.puh.data), 
+                "\nLähtöpaikka: ", str(form.lahtopaikka.data), "\nKiintiö: ", str(form.kiintio.data), 
+                "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+                "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT Fuksicursio ilmoittautuminen'", str(form.email.data)
+            ]
+
+        cmd = ' '.join(msg)
+        returnvalue = os.system(cmd)
+
+        return redirect(url_for('fucu'))
+
+    elif submitted and totalcount > maxlimit:
+        totalcount -= totalcount
+        flash('Ilmoittautuminen on jo täynnä')
+
+    elif (not validate) and submitted:
+        flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
+
+
+    return render_template('fucu.html', title='fucu ilmoittautuminen',
+                            entrys=entrys,
+                            totalcount=totalcount,
+                            starttime=starttime,
+                            endtime=endtime,
+                            nowtime=nowtime,
+                            limit=limit,
+                            form=form,
+                            page="fucu")
+
+
+@app.route('/fucu_data', methods=['GET'])
+@auth.login_required(role=['admin', 'fucu'])
+def fucu_data():
+    limit = 60
+
+    entries = fucuModel.query.all()
+
+    count = fucuModel.query.count()
+
+    return render_template('fucu_data.html', title='fucu data',
+                           entries=entries,
+                           count=count,
+                           limit=limit)
+
+@app.route('/fucu_data/fucu_model_data.csv')
+@auth.login_required(role=['admin', 'fucu'])
+def fucu_csv():
+
+    os.system('mkdir csv')
+
+    sqlite_to_csv.exportToCSV('fucu_model')
+
+    dir = os.path.join(os.getcwd(), 'csv/')
+    
+    try:
+        print(dir)
+        return send_from_directory(directory=dir, path='.', filename='fucu_model_data.csv', as_attachment=True)
+    except FileNotFoundError as e:
+        print(e)
+        abort(404)
