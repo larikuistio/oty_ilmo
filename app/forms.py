@@ -80,7 +80,7 @@ class fucuForm(FlaskForm):
     email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
     puh = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
     lahtopaikka = SelectField('Lähtöpaikka *', 
-        choices=(['Yliopisto', 'Yliopisto'], ['Merikoskenkatu', 'Merikoskenkatu'], 
+        choices=(['Yliopisto', 'Yliopisto'], ['Merikoskenkatu (tuiran bussipysäkki)', 'Merikoskenkatu (tuiran bussipysäkki)'], 
         ['Linja-autoasema', 'Linja-autoasema']), 
         validators=[DataRequired()])
     kiintio = SelectField('Kiintiö *', 

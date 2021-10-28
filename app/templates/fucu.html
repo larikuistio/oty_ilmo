@@ -10,14 +10,18 @@
 
     <h2>Fuksicursio ilmoittautuminen</h2>
 
+    <p><strong>Fukseille ilmainen, muille maksaa 10 euroa.</strong></p>
+
+    <p>Perjantaina 5.11.2021 kello 9:00 alkaen</p>
+
     {% block ilmo %}
     <div class="container p-3">
         <div>
-            <h4>{{ title }}</h4>
-            <h5>* merkityt kohdat pakollisia</h5>
-            <h5><a
+            <h5>{{ title }}</h5>
+            <h6>* merkityt kohdat pakollisia</h6>
+            <h6><a
                     href="{{ url_for('static',filename='fucu_tietosuojaseloste.pdf') }}">Tietosuojaseloste</a>
-            </h5>
+            </h6>
 
         </div>
         {% if starttime < nowtime < endtime %} <form class="form form-horizontal" method="post" role="form">

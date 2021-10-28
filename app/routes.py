@@ -213,12 +213,11 @@ def pitsakaljasitsit_csv():
 
 
 @app.route('/fucu', methods=['GET', 'POST'])
-@auth.login_required(role=['admin', 'fucu'])
 def fucu():
     form = fucuForm()
 
-    starttime = datetime(2021, 10, 26, 12, 00, 00)
-    endtime = datetime(2021, 11, 5, 23, 59, 59)
+    starttime = datetime(2021, 10, 29, 12, 00, 00)
+    endtime = datetime(2021, 11, 3, 23, 59, 59)
     nowtime = datetime.now()
 
     limit = 100
@@ -314,7 +313,7 @@ def fucu():
 @app.route('/fucu_data', methods=['GET'])
 @auth.login_required(role=['admin', 'fucu'])
 def fucu_data():
-    limit = 60
+    limit = 100
 
     entries = fucuModel.query.all()
 
