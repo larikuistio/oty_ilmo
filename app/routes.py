@@ -81,7 +81,7 @@ def pitsakaljasitsit():
     form = sitsiForm()
 
     starttime = datetime(2021, 10, 26, 12, 00, 00)
-    endtime = datetime(2021, 11, 2, 23, 59, 59)
+    endtime = datetime(2021, 11, 9, 23, 59, 59)
     nowtime = datetime.now()
 
     limit = 60
@@ -217,7 +217,7 @@ def fucu():
     form = fucuForm()
 
     starttime = datetime(2021, 10, 29, 12, 00, 00)
-    endtime = datetime(2021, 11, 3, 23, 59, 59)
+    endtime = datetime(2021, 11, 4, 21, 00, 00)
     nowtime = datetime.now()
 
     limit = 100
