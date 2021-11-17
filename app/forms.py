@@ -90,3 +90,19 @@ class fucuForm(FlaskForm):
     consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
 
     submit = SubmitField('Ilmoittaudu')
+
+
+class kmpForm(FlaskForm):
+    etunimi = StringField('Etunimi *', validators=[DataRequired(), length(max=50)])
+    sukunimi = StringField('Sukunimi *', validators=[DataRequired(), length(max=50)])
+    email = StringField('Sähköposti *', validators=[DataRequired(), Email(), length(max=100)])
+    puh = StringField('Puhelinnumero *', validators=[DataRequired(), length(max=20)])
+    lahtopaikka = SelectField('Lähtöpaikka *', 
+        choices=(['Yliopisto', 'Yliopisto'], ['Merikoskenkatu (tuiran bussipysäkki)', 'Merikoskenkatu (tuiran bussipysäkki)'], 
+        ['Linja-autoasema', 'Linja-autoasema']), 
+        validators=[DataRequired()])
+    consent0 = BooleanField('Hyväksyn nimeni julkaisemisen tällä sivulla')
+    consent1 = BooleanField('Olen lukenut tietosuojaselosteen ja hyväksyn tietojeni käytön tapahtuman järjestämisessä *', validators=[DataRequired()])
+    consent2 = BooleanField('Ymmärrän, että ilmoittautuminen on sitova ja sitoudun maksamaan 40 euron (ei sisällä sitsien hintaa) maksun killalle *', validators=[DataRequired()])
+
+    submit = SubmitField('Ilmoittaudu')

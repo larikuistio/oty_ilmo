@@ -5,8 +5,8 @@ from app import app, db
 from datetime import datetime, date, time, timedelta
 import requests
 from sqlalchemy import and_
-from app.forms import sitsiForm, fucuForm
-from app.models import sitsiModel, fucuModel
+from app.forms import sitsiForm, fucuForm, kmpForm
+from app.models import sitsiModel, fucuModel, kmpModel
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
 from app import sqlite_to_csv
@@ -337,6 +337,138 @@ def fucu_csv():
     try:
         print(dir)
         return send_from_directory(directory=dir, path='.', filename='fucu_model_data.csv', as_attachment=True)
+    except FileNotFoundError as e:
+        print(e)
+        abort(404)
+
+
+
+
+@app.route('/kmp', methods=['GET', 'POST'])
+def kmp():
+    form = kmpForm()
+
+    starttime = datetime(2021, 11, 9, 13, 37, 37)
+    endtime = datetime(2021, 11, 26, 23, 59, 59)
+    nowtime = datetime.now()
+
+    limit = 58
+    maxlimit = 58
+    
+    entrys = kmpModel.query.all()
+    totalcount = kmpModel.query.count()
+    for entry in entrys:
+        if(entry.etunimi == form.etunimi.data and entry.sukunimi == form.sukunimi.data):
+            flash('Olet jo ilmoittautunut')
+
+            return render_template('kmp.html', title='kmp ilmoittautuminen',
+                                    entrys=entrys,
+                                    totalcount=totalcount,
+                                    starttime=starttime,
+                                    endtime=endtime,
+                                    nowtime=nowtime,
+                                    limit=limit,
+                                    form=form,
+                                    page="kmp")
+
+
+    if request.method == 'POST':
+        validate = form.validate_on_submit()
+        submitted = form.is_submitted()
+    else:
+        validate = False
+        submitted = False
+
+    if validate and submitted and totalcount <= maxlimit:
+        if totalcount >= limit:
+            flash('Ilmoittautuminen onnistui, olet varasijalla')
+        else:
+            flash('Ilmoittautuminen onnistui')
+
+        sub = kmpModel(
+            etunimi = form.etunimi.data,
+            sukunimi = form.sukunimi.data,
+            email = form.email.data,
+            puh = form.puh.data,
+            lahtopaikka = form.lahtopaikka.data,
+            consent0 = form.consent0.data,
+            consent1 = form.consent1.data,
+            consent2 = form.consent2.data,
+            datetime = nowtime
+        )
+        db.session.add(sub)
+        db.session.commit()
+
+        if totalcount >= limit:
+            msg = [
+                "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
+                "\n\nOlet ilmoittautunut OTiTin KMP:lle. Olet varasijalla. ", 
+                "Jos KMPlle jää peruutuksien myötä vapaita paikkoja, niin sinuun voidaan olla yhteydessä. ",
+                "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+                "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT KMP ilmoittautuminen'", str(form.email.data)
+            ]
+        else:
+            msg = [
+                "echo \"Hei", str(form.etunimi.data), " ", str(form.sukunimi.data), 
+                "\n\nOlet ilmoittautunut OTiTin KMPlle. Tässä vielä syöttämäsi tiedot: ", 
+                "\n\nNimi: ", str(form.etunimi.data), str(form.sukunimi.data), 
+                "\nSähköposti: ", str(form.email.data), "\nPuhelinnumero: ", str(form.puh.data), 
+                "\nLähtöpaikka: ", str(form.lahtopaikka.data), 
+                "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
+                "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT KMP ilmoittautuminen'", str(form.email.data)
+            ]
+
+        cmd = ' '.join(msg)
+        returnvalue = os.system(cmd)
+
+        return redirect(url_for('kmp'))
+
+    elif submitted and totalcount > maxlimit:
+        totalcount -= totalcount
+        flash('Ilmoittautuminen on jo täynnä')
+
+    elif (not validate) and submitted:
+        flash('Ilmoittautuminen epäonnistui, tarkista syöttämäsi tiedot')
+
+
+    return render_template('kmp.html', title='kmp ilmoittautuminen',
+                            entrys=entrys,
+                            totalcount=totalcount,
+                            starttime=starttime,
+                            endtime=endtime,
+                            nowtime=nowtime,
+                            limit=limit,
+                            form=form,
+                            page="kmp")
+
+
+@app.route('/kmp_data', methods=['GET'])
+@auth.login_required(role=['admin', 'kmp'])
+def kmp_data():
+    limit = 100
+
+    entries = kmpModel.query.all()
+
+    count = kmpModel.query.count()
+
+    return render_template('kmp_data.html', title='kmp data',
+                           entries=entries,
+                           count=count,
+                           limit=limit)
+
+@app.route('/kmp_data/kmp_model_data.csv')
+@auth.login_required(role=['admin', 'kmp'])
+def kmp_csv():
+
+    os.system('mkdir csv')
+
+    sqlite_to_csv.exportToCSV('kmp_model')
+
+    dir = os.path.join(os.getcwd(), 'csv/')
+    
+    try:
+        print(dir)
+        return send_from_directory(directory=dir, path='.', filename='kmp_model_data.csv', as_attachment=True)
     except FileNotFoundError as e:
         print(e)
         abort(404)

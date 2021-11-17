@@ -1,0 +1,118 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% extends "header.html" %}
+
+{% block content %}
+
+<!--<script src="{{ url_for('static',filename='kmp.js') }}"></script>-->
+
+<div class="container p-3" style="max-width: 800px; background-color: white; opacity: 0.9;">
+
+    <h4>KMP ilmoittautuminen</h4>
+    <p>Lähtö 3.12. perjantaina aamulla, paluu 5.12. sunnuntaina illalla</p>
+    <p>Hinta 40 euroa (ei sisällä sitsien hintaa). Ilmoittautuminen on sitova.</p>
+
+    {% block ilmo %}
+    <div class="container p-3">
+        <div>
+            <h5>{{ title }}</h5>
+            <h6>* merkityt kohdat pakollisia</h6>
+            <h6><a
+                    href="{{ url_for('static',filename='kmp_tietosuojaseloste.pdf') }}">Tietosuojaseloste</a>
+            </h6>
+
+        </div>
+        {% if starttime < nowtime < endtime %} <form class="form form-horizontal" method="post" role="form">
+            {{ form.hidden_tag() }}
+
+            {{ wtf.form_field(form.etunimi) }}
+            {% for e in form.etunimi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+                {{ wtf.form_field(form.sukunimi) }}
+                {% for e in form.sukunimi.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.email) }}
+                {% for e in form.email.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.puh) }}
+                {% for e in form.puh.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.lahtopaikka) }}
+                {% for e in form.lahtopaikka.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.consent0) }}
+                {% for e in form.consent0.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.consent1) }}
+                {% for e in form.consent1.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                {{ wtf.form_field(form.consent2) }}
+                {% for e in form.consent2.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+                <button class="btn btn-info">{{ wtf.form_field(form.submit) }}</button>
+                {% for e in form.submit.errors %}
+            <p class="alert alert-primary alert-dismissible" role="alert">{{ e }}
+            <p>
+                {% endfor %}
+
+            <h5>Ilmoittautuminen päättyy {{ endtime }}</h5>
+
+            <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
+            {% for entry in entrys%}
+            {% if entry.consent0 %}
+            <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+                {% if loop.index > limit %}
+                (Varasijalla)
+                {% endif %}
+            </p>
+            {% endif %}
+            {% endfor %}
+
+            </form>
+            {% elif nowtime < starttime %} <h5>Ilmoittautuminen alkaa {{ starttime }}</h5>
+                {% else %}
+                <h5>Ilmoittautuminen on päättynyt</h5>
+                <h3>Osallistujat: {{ totalcount }}/{{ limit }}</h3>
+                {% for entry in entrys%}
+                {% if entry.consent0 %}
+                <p>{{ entry.etunimi }} {{ entry.sukunimi }}
+                    {% if loop.index > limit %}
+                    (Varasijalla)
+                    {% endif %}
+                </p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+
+
+
+    </div>
+    {% endblock %}
+
+</div>
+
+{% endblock %}
