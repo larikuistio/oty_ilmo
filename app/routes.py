@@ -414,6 +414,12 @@ def kmp():
                 "\n\nNimi: ", str(form.etunimi.data), str(form.sukunimi.data), 
                 "\nSähköposti: ", str(form.email.data), "\nPuhelinnumero: ", str(form.puh.data), 
                 "\nLähtöpaikka: ", str(form.lahtopaikka.data), 
+                "\nKMP:llä Lappeenrannassa järjestettäville sitseille voit ilmoittautua osoitteessa https://forms.gle/aLLSsT1PpUQMQaNb8", 
+                "\n\nMaksuohjeet: ", 
+                "\nHinta: 40 euroa", 
+                "\nTilinumero: FI03 4744 3020 0116 87", 
+                "\nVastaanottajan nimi: Oulun Tietoteekkarit ry", 
+                "\nViestiksi \"KMP + oma nimi (etunimi ja sukunimi)\"", 
                 "\n\nÄlä vastaa tähän sähköpostiin, vastaus ei mene silloin mihinkään.\"",
                 "|mail -aFrom:no-reply@otitkakspistenolla.oulu.fi -s 'OTiT KMP ilmoittautuminen'", str(form.email.data)
             ]
