@@ -349,7 +349,7 @@ def kmp():
     form = kmpForm()
 
     starttime = datetime(2021, 11, 19, 13, 37, 37)
-    endtime = datetime(2021, 12, 03, 02, 00, 00)
+    endtime = datetime(2021, 11, 26, 23, 59, 59)
     nowtime = datetime.now()
 
     limit = 58
