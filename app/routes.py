@@ -352,8 +352,8 @@ def kmp():
     endtime = datetime(2021, 12, 3, 2, 00, 00)
     nowtime = datetime.now()
 
-    limit = 58
-    maxlimit = 58
+    limit = 15
+    maxlimit = 15
     
     entrys = kmpModel.query.all()
     totalcount = kmpModel.query.count()
